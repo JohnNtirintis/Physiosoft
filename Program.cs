@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Configuration;
+using Physiosoft.DAO;
 using Physiosoft.Data;
+using Physiosoft.Service;
 using Serilog;
 
 namespace Physiosoft
@@ -20,8 +23,20 @@ namespace Physiosoft
                 config.ReadFrom.Configuration(context.Configuration);
             });*/
 
+            // Authentication services 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.Cookie.HttpOnly = true;
+                    options.SlidingExpiration = true;
+                });
+
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IUserDAO, UserDaoImpl>();
+            builder.Services.AddScoped<UserAuthenticationService>();
 
             var app = builder.Build();
 
@@ -30,6 +45,7 @@ namespace Physiosoft
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

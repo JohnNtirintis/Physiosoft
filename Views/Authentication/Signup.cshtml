@@ -1,0 +1,63 @@
+﻿@model UserMvcApp.DTO.UserSignupDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Signup</title>
+</head>
+<body>
+    <div class="container">
+        <main class="w-50 mx-auto mt-5 p-3 border border-primary rounded-3">
+            <form asp-controller="Authentication" asp-action="Signup" method="Post">
+                <div class="row mb-3">
+                    <label for="email" class="col-md-2 col-form-label text-end">Email</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="email" id="email" placeholder="Enter Email" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="username" class="col-md-2 col-form-label text-end">Username</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" />
+                    </div>                 
+                </div>
+                <div class="row mb-3">
+                    <label for="password" class="col-md-2 col-form-label text-end">Password</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="password" id="password" placeholder="Enter Password" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="offset-md-2 col-md-3 d-grid">
+                        <button type="submit" class="btn btn-primary">Signup</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <div>
+        @if (ViewData["ErrorsArray"] != null)
+        {
+            var errorsArray = ViewData["ErrorsArray"] as List<Error>;
+            @if (errorsArray is not null)
+            {
+                @foreach (var error in errorsArray)
+                {
+                    <div>
+                        <p>@error.Message</p>
+                    </div>
+
+                }
+            }
+        }
+    </div>
+</body>
+</html>

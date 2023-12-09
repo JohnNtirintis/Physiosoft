@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
+using Physiosoft.DTO.User;
+using Physiosoft.Security;
+using Physiosoft.Service;
 
 namespace Physiosoft.DAO
 {
@@ -7,11 +11,13 @@ namespace Physiosoft.DAO
     {
         private readonly PhysiosoftDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly UserAuthenticationService _userAuthenticationService;
 
-        public UserDaoImpl(PhysiosoftDbContext dbContext, IMapper mapper)
+        public UserDaoImpl(PhysiosoftDbContext dbContext, IMapper mapper, UserAuthenticationService userAuthenticationService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _userAuthenticationService = userAuthenticationService;
         }
 
         public bool Delete(int id)
@@ -50,6 +56,7 @@ namespace Physiosoft.DAO
                 _dbContext.SaveChanges();
             }
 
+            // TODO
             // Throw exception error if its null
         }
 
@@ -65,6 +72,36 @@ namespace Physiosoft.DAO
             }
 
             return _mapper.Map<User>(userToUpdate);
+        }
+
+        public async Task<User?> GetUserAsync(string username, string password)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
+            if (user is null) return null;
+
+            if (!EncryptionUtil.IsValidPassword(password, user.Password!)) return null;
+
+            return user;
+        }
+
+        public async Task<User?> GetByUsernameAsync(string username)
+        {
+            return await _dbContext.Users.Where(x  => x.Username == username).FirstOrDefaultAsync();
+        }
+
+        public async Task<User?> GetByEmail(string email)
+        {
+            return await _dbContext.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+        }
+
+        public async Task SignUpUserAsync(UserSignupDTO request)
+        {
+            if(!await _dbContext.Users.Sign)
+        }
+
+        public async Task<User?> LoginUserAsync(UserLoginDTO credentials)
+        {
+            throw new NotImplementedException();
         }
     }
 }

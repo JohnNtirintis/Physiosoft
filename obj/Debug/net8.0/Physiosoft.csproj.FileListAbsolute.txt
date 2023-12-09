@@ -290,3 +290,5 @@ D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\runtimes\win-arm64\native\e_s
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Projects\Physiosoft\Physiosoft\obj\Debug\net8.0\Physiosoft.sourcelink.json
+D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\BCrypt.Net-Core.dll

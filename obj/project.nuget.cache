@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "eN1SFMRIYhjvRMZFN6OfDobaRYv7dQbZW9GuyeLQDI/ZPZVOBPx3REfDK8JgSGYjSYYf6CDIPBqiEPnrb/Z+kw==",
+  "dgSpecHash": "i+XPsGQpo+QOCbo9iAnSnC3ABWjJqsQkuUiWsWv3L0qNel+6Mx/7NZnnxKw11WAvpoq+RarvAQ3l0u/SzGfCYQ==",
   "success": true,
   "projectFilePath": "D:\\Projects\\Physiosoft\\Physiosoft\\Physiosoft.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\giann\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\giann\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\giann\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\giann\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\giann\\.nuget\\packages\\fluentvalidation\\11.8.1\\fluentvalidation.11.8.1.nupkg.sha512",
     "C:\\Users\\giann\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.8.1\\fluentvalidation.dependencyinjectionextensions.11.8.1.nupkg.sha512",
     "C:\\Users\\giann\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",

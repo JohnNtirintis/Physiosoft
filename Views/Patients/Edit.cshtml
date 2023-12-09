@@ -1,0 +1,81 @@
+﻿@model Physiosoft.Data.Patient
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Patient</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PatientId" />
+            <div class="form-group">
+                <label asp-for="Firstname" class="control-label"></label>
+                <input asp-for="Firstname" class="form-control" />
+                <span asp-validation-for="Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lastname" class="control-label"></label>
+                <input asp-for="Lastname" class="form-control" />
+                <span asp-validation-for="Lastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telephone" class="control-label"></label>
+                <input asp-for="Telephone" class="form-control" />
+                <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="address" class="control-label"></label>
+                <input asp-for="address" class="form-control" />
+                <span asp-validation-for="address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vat" class="control-label"></label>
+                <input asp-for="Vat" class="form-control" />
+                <span asp-validation-for="Vat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ssn" class="control-label"></label>
+                <input asp-for="Ssn" class="form-control" />
+                <span asp-validation-for="Ssn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegNum" class="control-label"></label>
+                <input asp-for="RegNum" class="form-control" />
+                <span asp-validation-for="RegNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasReviewd" /> @Html.DisplayNameFor(model => model.HasReviewd)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientIssue" class="control-label"></label>
+                <input asp-for="PatientIssue" class="form-control" />
+                <span asp-validation-for="PatientIssue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

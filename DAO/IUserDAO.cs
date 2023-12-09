@@ -1,4 +1,5 @@
 ﻿using Physiosoft.Data;
+using Physiosoft.DTO.User;
 
 namespace Physiosoft.DAO
 {
@@ -9,5 +10,10 @@ namespace Physiosoft.DAO
         bool Delete(int id);
         User? GetById(int id);
         List<User> GetAll();
+        Task SignUpUserAsync(UserSignupDTO request);
+        Task<User?> LoginUserAsync(UserLoginDTO credentials);
+        Task<User?> GetUserAsync(string username, string password);
+        Task<User?> GetByUsernameAsync(string username);
+        Task<User?> GetByEmail(string email);
     }
 }

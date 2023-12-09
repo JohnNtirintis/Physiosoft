@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "BCrypt.Net-Core": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[11.8.1, )"

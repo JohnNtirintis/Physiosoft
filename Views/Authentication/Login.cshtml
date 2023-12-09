@@ -1,0 +1,57 @@
+﻿@model Physiosoft.DTO.User.UserLoginDTO
+    
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="container">
+        <main class="w-50 mx-auto mt-5 p-3 border border-primary rounded-3">
+            <form asp-controller="Authentication" asp-action="Login" method="Post">
+                <div class="row mb-3">
+                    <label for="username" class="col-md-2 col-form-label text-end">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" />
+                </div>
+                <div class="row mb-3">
+                    <label for="password" class="col-md-2 col-form-label text-end">Password</label>
+                    <input type="text" class="form-control" name="password" id="password" placeholder="Enter Password" />
+                </div>
+                <div class="row mb-3">
+                    <label for="KeepLoggedIn" class="col-md-2 form-check-label text-end">Remember Me</label>
+
+                    <div class="col-md-1">
+                        <input type="checkbox" class="form-check-input" name="KeepLoggedIn" id="KeepLoggedIn" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="offset-md-2 col-md-3 d-grid">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+
+            <div>
+                Don't have an account? Sign up <a href="~/User/Signup">here!</a>
+            </div>
+
+            <div class="mt-5 offset-md-4 text-danger fs-6">
+                @ViewData["ValidateMessage"]
+            </div>
+
+        </main>
+
+    </div>
+</body>
+</html>

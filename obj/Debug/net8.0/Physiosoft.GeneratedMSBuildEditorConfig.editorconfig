@@ -26,12 +26,60 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Projects\Physiosoft\Physiosoft
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Projects/Physiosoft/Physiosoft/Views/Authentication/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Authentication/Signup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cU2lnbnVwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/Physiosoft/Physiosoft/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/Physiosoft/Physiosoft/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Patients/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Patients/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Patients/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Patients/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Patients/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Physios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGh5c2lvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Physios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGh5c2lvc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Physios/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGh5c2lvc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Physios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGh5c2lvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Physiosoft/Physiosoft/Views/Physios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGh5c2lvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/Physiosoft/Physiosoft/Views/Shared/Error.cshtml]
