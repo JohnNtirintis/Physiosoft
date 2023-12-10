@@ -52,7 +52,7 @@ namespace Physiosoft
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Authentication}/{action=Login}/{id?}");
 
             app.Run();
         }

@@ -7,6 +7,8 @@ using Physiosoft.Models;
 using System.Security.Claims;
 using Physiosoft.Service;
 using Physiosoft.Repisotories;
+using Physiosoft.DAO;
+using Physiosoft.Security;
 
 namespace Physiosoft.Controllers
 {
@@ -14,12 +16,14 @@ namespace Physiosoft.Controllers
     {
         private readonly UserAuthenticationService _userAuthenticationService;
         private readonly IUserRepository _userRepository;
+        private readonly IUserDAO _userDAO;
         public List<Error> ErrorsArray { get; set; } = new();
 
-        public AuthenticationController(UserAuthenticationService userAuthenticationService, IUserRepository userRepository)
+        public AuthenticationController(UserAuthenticationService userAuthenticationService, IUserRepository userRepository, IUserDAO userDAO)
         {
             _userAuthenticationService = userAuthenticationService;
             _userRepository = userRepository;
+            _userDAO = userDAO;
         }
 
         [HttpGet]
@@ -76,13 +80,20 @@ namespace Physiosoft.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDTO credentials, bool KeepLoggedIn)
         {
-            
-            if(await _userAuthenticationService.AuthenticateUserAsync(credentials.Username, credentials.Password))
+            //var user = await _userAuthenticationService.AuthenticateUserAsync(credentials.Username, credentials.Password);
+            var user = await _userDAO.GetUserAsync(credentials.Username);
+
+            if (user != null && EncryptionUtil.IsValidPassword(credentials.Password, user.Password))
             {
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, credentials.Username),
                 };
+
+                if (user.IsAdmin)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                }
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -106,6 +117,7 @@ namespace Physiosoft.Controllers
             return View(credentials);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

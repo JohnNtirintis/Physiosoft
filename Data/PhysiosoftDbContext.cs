@@ -146,6 +146,9 @@ namespace Physiosoft.Data
                 entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");
+                entity.Property(e => e.IsAdmin)
+                .HasDefaultValue(false)
+                .HasColumnName("is_admin");
             });
 
             OnModelCreatingPartial(modelBuilder);
