@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Physiosoft.Configuration;
 using Physiosoft.DAO;
 using Physiosoft.Data;
+using Physiosoft.Repisotories;
 using Physiosoft.Service;
 using Serilog;
 
@@ -37,6 +38,7 @@ namespace Physiosoft
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IUserDAO, UserDaoImpl>();
             builder.Services.AddScoped<UserAuthenticationService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 

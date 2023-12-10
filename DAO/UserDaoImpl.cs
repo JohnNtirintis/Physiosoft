@@ -11,13 +11,11 @@ namespace Physiosoft.DAO
     {
         private readonly PhysiosoftDbContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly UserAuthenticationService _userAuthenticationService;
 
-        public UserDaoImpl(PhysiosoftDbContext dbContext, IMapper mapper, UserAuthenticationService userAuthenticationService)
+        public UserDaoImpl(PhysiosoftDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
-            _userAuthenticationService = userAuthenticationService;
         }
 
         public bool Delete(int id)
@@ -74,7 +72,7 @@ namespace Physiosoft.DAO
             return _mapper.Map<User>(userToUpdate);
         }
 
-        public async Task<User?> GetUserAsync(string username, string password)
+        /*public async Task<User?> GetUserAsync(string username, string password)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
             if (user is null) return null;
@@ -82,7 +80,13 @@ namespace Physiosoft.DAO
             if (!EncryptionUtil.IsValidPassword(password, user.Password!)) return null;
 
             return user;
+        }*/
+
+        public async Task<User?> GetUserAsync(string username)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
         }
+
 
         public async Task<User?> GetByUsernameAsync(string username)
         {
@@ -93,13 +97,20 @@ namespace Physiosoft.DAO
         {
             return await _dbContext.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
         }
+        
+        // TODO
 
         public async Task SignUpUserAsync(UserSignupDTO request)
         {
-            if(!await _dbContext.Users.Sign)
+            throw new NotImplementedException();
         }
 
         public async Task<User?> LoginUserAsync(UserLoginDTO credentials)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IUserDAO.SignUpUserAsync(UserSignupDTO request)
         {
             throw new NotImplementedException();
         }

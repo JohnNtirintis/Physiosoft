@@ -5,13 +5,8 @@ using Physiosoft.Security;
 
 namespace Physiosoft.Repisotories
 {
-    public class UserRepository : BaseRepository<User>, IUserRepository
+    public class UserRepository(PhysiosoftDbContext context) : BaseRepository<User>(context), IUserRepository
     {
-        public UserRepository(PhysiosoftDbContext context) : base(context)
-        {
-
-        }
-
         public async Task<bool> SignupUserAsync(UserSignupDTO request)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.Username == request.Username);
@@ -26,11 +21,11 @@ namespace Physiosoft.Repisotories
             };
 
             await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
             return true;
-
         }
 
-        public async Task<User?> GetUserAsync(string username, string password)
+        /*public async Task<User?> GetUserAsync(string username, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username); // || x.Email == username
             if (user is null) return null;
@@ -38,8 +33,13 @@ namespace Physiosoft.Repisotories
             if (!EncryptionUtil.IsValidPassword(password, user.Password!)) return null;
 
             return user;
-            ;
+        }*/
+
+        public async Task<User?> GetUserAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
         }
+
 
         public async Task<User?> UpdateUserAsync(int userId, UserPatchDTO request)
         {

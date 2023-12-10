@@ -141,14 +141,11 @@ namespace Physiosoft.Data
                 .HasMaxLength(50)
                 .HasColumnName("username");
                 entity.Property(e => e.Password)
-                 .HasMaxLength(50)
+                 .HasMaxLength(255)
                  .HasColumnName("password");
                 entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");
-                entity.Property(e => e.PasswordHash)
-                .HasMaxLength(60)
-                .HasColumnName("password_hash");
             });
 
             OnModelCreatingPartial(modelBuilder);

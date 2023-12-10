@@ -6,17 +6,20 @@ using Physiosoft.Models;
 
 using System.Security.Claims;
 using Physiosoft.Service;
+using Physiosoft.Repisotories;
 
 namespace Physiosoft.Controllers
 {
     public class AuthenticationController : Controller
     {
         private readonly UserAuthenticationService _userAuthenticationService;
+        private readonly IUserRepository _userRepository;
         public List<Error> ErrorsArray { get; set; } = new();
 
-        public AuthenticationController(UserAuthenticationService userAuthenticationService)
+        public AuthenticationController(UserAuthenticationService userAuthenticationService, IUserRepository userRepository)
         {
             _userAuthenticationService = userAuthenticationService;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -56,7 +59,7 @@ namespace Physiosoft.Controllers
 
             try
             {
-                await _userAuthenticationService.SignUpUserAsync(request);
+                await _userRepository.SignupUserAsync(request);
             }
             catch (Exception e)
             {
@@ -65,9 +68,9 @@ namespace Physiosoft.Controllers
                 return View();
             }
 
-            // 1st param is actionName (webpage)
+            // 1st param is actionName (webpage/view)
             // 2nd param is controller (~/Controllers)
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("Login", "Authentication");
         }
 
         [HttpPost]

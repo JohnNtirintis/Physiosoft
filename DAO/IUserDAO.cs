@@ -10,9 +10,10 @@ namespace Physiosoft.DAO
         bool Delete(int id);
         User? GetById(int id);
         List<User> GetAll();
-        Task SignUpUserAsync(UserSignupDTO request);
+        Task<bool> SignUpUserAsync(UserSignupDTO request);
         Task<User?> LoginUserAsync(UserLoginDTO credentials);
-        Task<User?> GetUserAsync(string username, string password);
+        //Task<User?> GetUserAsync(string username, string password);
+        Task<User?> GetUserAsync(string username);
         Task<User?> GetByUsernameAsync(string username);
         Task<User?> GetByEmail(string email);
     }

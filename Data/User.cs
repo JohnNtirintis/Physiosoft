@@ -15,7 +15,5 @@ namespace Physiosoft.Data
         public string Password { get; set; }
         [Column("email")]
         public string Email { get; set; }
-        [Column("password_hash")]
-        public string? PasswordHash { get; set; }
     }
 }

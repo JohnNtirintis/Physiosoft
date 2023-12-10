@@ -1,4 +1,5 @@
 ﻿using Physiosoft.DAO;
+using Physiosoft.Security;
 
 namespace Physiosoft.Service
 {
@@ -11,12 +12,21 @@ namespace Physiosoft.Service
             _userDAO = userDAO;
         }
 
-        public async Task<bool> AuthenticateUserAsync(string username, string password)
+        /*public async Task<bool> AuthenticateUserAsync(string username, string password)
         {
             var user = await _userDAO.GetUserAsync(username, password);
+            if (user == null) return false;
 
             // password hash?
-            return user != null && BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+            return user != null && BCrypt.Net.BCrypt.Verify(password, user.Password);
+        }*/
+
+        public async Task<bool> AuthenticateUserAsync(string username, string password)
+        {
+            var user = await _userDAO.GetUserAsync(username);
+            if (user == null) return false;
+
+            return EncryptionUtil.IsValidPassword(password, user.Password);
         }
     }
 }
