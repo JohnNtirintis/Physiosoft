@@ -53,7 +53,7 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,AtWorkplace,PatientLocation,Notes,PatientIssuse,HasScans")] Appointment appointment)
+        public async Task<IActionResult> Create([Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,Notes,PatientIssuse,HasScans")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +61,7 @@ namespace Physiosoft.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(appointment);
         }
 

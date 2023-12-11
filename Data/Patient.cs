@@ -6,6 +6,7 @@ namespace Physiosoft.Data
     public class Patient
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("patient_id")]
         public int PatientId { get; set; }
         [Column("firstname")]

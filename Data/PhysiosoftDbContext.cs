@@ -46,17 +46,15 @@ namespace Physiosoft.Data
 
             modelBuilder.Entity<Patient>(entity =>
             {
-                entity.HasKey(e => e.PatientId).HasName("PK__PATIENTS__4D5CE4766CC410D0");
+                // TODO: CHECK THAT IT WORKS
+                // TODO: WHOLE PROJECT NEEDS MORE WORK THAN ANTICIPATED
+                entity.HasKey(e => e.PatientId).HasName("PK__PATIENTS__4D5CE4769C9C68C2");
 
                 entity.ToTable("PATIENTS");
 
                 entity.HasIndex(e => e.Lastname, "IX_PATIENTS_LASTNAME");
 
-                entity.HasIndex(e => e.Ssn, "IX_PATIENTS_SSN").IsUnique();
-
-                entity.HasIndex(e => e.Vat, "IX_PATIENTS_VAT").IsUnique();
-
-                entity.HasIndex(e => e.RegNum, "IX_PATIENTS_REG_NUM").IsUnique();
+                entity.HasIndex(e => e.Ssn, "UQ_PATIENTS_SSN").IsUnique();
 
                 entity.Property(e => e.PatientId).HasColumnName("patient_id");
 
@@ -114,9 +112,6 @@ namespace Physiosoft.Data
                 entity.Property(e => e.AppointmentStatus)
                 .HasMaxLength(50)
                 .HasColumnName("appointment_status");
-                entity.Property(e => e.AtWorkplace)
-                .HasDefaultValue(true)
-                .HasColumnName("at_workplace");
                 entity.Property(e => e.Notes)
                 .HasMaxLength(500)
                 .HasColumnName("notes");

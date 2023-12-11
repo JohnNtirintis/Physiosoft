@@ -18,9 +18,9 @@
                 <span asp-validation-for="PatientID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhysioID" class="control-label"></label>
-                <input asp-for="PhysioID" class="form-control" />
-                <span asp-validation-for="PhysioID" class="text-danger"></span>
+                <label asp-for="PhysioID" class="control-label" ></label>
+                <input asp-for="PhysioID" class="form-control   />
+                <span asp-validation-for="PhysioID" class="text-danger" ></span>
             </div>
             <div class="form-group">
                 <label asp-for="AppointmentDate" class="control-label"></label>
@@ -38,11 +38,6 @@
                 <span asp-validation-for="AppointmentStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PatientLocation" class="control-label"></label>
-                <input asp-for="PatientLocation" class="form-control" />
-                <span asp-validation-for="PatientLocation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Notes" class="control-label"></label>
                 <input asp-for="Notes" class="form-control" />
                 <span asp-validation-for="Notes" class="text-danger"></span>
@@ -51,6 +46,13 @@
                 <label asp-for="PatientIssuse" class="control-label"></label>
                 <input asp-for="PatientIssuse" class="form-control" />
                 <span asp-validation-for="PatientIssuse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="HasScans" class="form-check-input" type="checkbox" id="hasScansCheckbox" />
+                    <label class="form-check-label" asp-for="HasScans"></label>
+                    <span asp-validation-for="HasScans" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -62,4 +64,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
