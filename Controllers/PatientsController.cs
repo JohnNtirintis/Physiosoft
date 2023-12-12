@@ -53,7 +53,7 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PatientId,Firstname,Lastname,Telephone,address,Vat,Ssn,RegNum,Notes,Email,HasReviewd,PatientIssue")] Patient patient)
+        public async Task<IActionResult> Create([Bind("PatientId,Firstname,Lastname,Telephone,Address,Vat,Ssn,RegNum,Notes,Email,HasReviewed,PatientIssue")] Patient patient)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,24 @@ namespace Physiosoft.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(patient);
+            else
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                     .Select(e => e.ErrorMessage);
+
+                var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorMessage in error.Errors)
+                    {
+                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    }
+                }
+
+                return View(patient);
+            }
         }
 
         // GET: Patients/Edit/5
@@ -85,7 +102,7 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Firstname,Lastname,Telephone,address,Vat,Ssn,RegNum,Notes,Email,HasReviewd,PatientIssue")] Patient patient)
+        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Firstname,Lastname,Telephone,Address,Vat,Ssn,RegNum,Notes,Email,HasReviewed,PatientIssue")] Patient patient)
         {
             if (id != patient.PatientId)
             {
@@ -112,7 +129,24 @@ namespace Physiosoft.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(patient);
+            else
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                     .Select(e => e.ErrorMessage);
+
+                var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorMessage in error.Errors)
+                    {
+                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    }
+                }
+
+                return View(patient);
+            }
         }
 
         // GET: Patients/Delete/5

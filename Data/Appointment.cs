@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
@@ -14,10 +15,9 @@ namespace Physiosoft.Data
         [Column("patient_id")]
         [Range(1, int.MaxValue, ErrorMessage = "ID must be greater than 0")]
         public int PatientID { get; set; }
-        [Required]
         [Column("physio_id")]
         [Range(1, int.MaxValue, ErrorMessage = "ID must be greater than 0")]
-        public int PhysioID { get; set; }
+        public int? PhysioID { get; set; }
         [Required]
         [Column("appointment_date")]
         public DateTime AppointmentDate { get; set; }
@@ -34,7 +34,16 @@ namespace Physiosoft.Data
         public string PatientIssuse { get; set; }
         [Required]
         [Column("has_scans")]
-        public bool HasScans { get; set; }
+        [DefaultValue(false)]
+        public bool HasScans { get; set; } = false;
+        public virtual Patient Patient { get; set; }
+        public virtual Physio Physio { get; set; }
+
+/*        public Appointment()
+        {
+            Patient = new Patient();
+            Physio = new Physio();
+        }*/
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

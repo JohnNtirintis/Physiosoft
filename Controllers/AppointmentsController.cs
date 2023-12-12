@@ -21,7 +21,8 @@ namespace Physiosoft.Controllers
         // GET: Appointments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Appointments.ToListAsync());
+            var physiosoftDbContext = _context.Appointments.Include(a => a.Patient).Include(a => a.Physio);
+            return View(await physiosoftDbContext.ToListAsync());
         }
 
         // GET: Appointments/Details/5
@@ -33,6 +34,8 @@ namespace Physiosoft.Controllers
             }
 
             var appointment = await _context.Appointments
+                .Include(a => a.Patient)
+                .Include(a => a.Physio)
                 .FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
             {
@@ -45,6 +48,8 @@ namespace Physiosoft.Controllers
         // GET: Appointments/Create
         public IActionResult Create()
         {
+            ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId");
+            ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId");
             return View();
         }
 
@@ -55,6 +60,10 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,Notes,PatientIssuse,HasScans")] Appointment appointment)
         {
+
+            ModelState.Remove("Physio");
+            ModelState.Remove("Patient");
+
             if (ModelState.IsValid)
             {
                 _context.Add(appointment);
@@ -62,7 +71,23 @@ namespace Physiosoft.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            // Prepare ViewData for dropdowns when ModelState is not valid
+            ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
+            ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
+
+            var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+            foreach (var error in errors)
+            {
+                foreach (var errorMessage in error.Errors)
+                {
+                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                }
+            }
+
             return View(appointment);
+
         }
 
         // GET: Appointments/Edit/5
@@ -78,6 +103,8 @@ namespace Physiosoft.Controllers
             {
                 return NotFound();
             }
+            ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
+            ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
             return View(appointment);
         }
 
@@ -86,7 +113,7 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,AtWorkplace,PatientLocation,Notes,PatientIssuse,HasScans")] Appointment appointment)
+        public async Task<IActionResult> Edit(int id, [Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,Notes,PatientIssuse,HasScans")] Appointment appointment)
         {
             if (id != appointment.AppointmentID)
             {
@@ -113,6 +140,21 @@ namespace Physiosoft.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            // Prepare ViewData for dropdowns when ModelState is not valid
+            ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
+            ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
+
+            var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+            foreach (var error in errors)
+            {
+                foreach (var errorMessage in error.Errors)
+                {
+                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                }
+            }
+
             return View(appointment);
         }
 
@@ -125,6 +167,8 @@ namespace Physiosoft.Controllers
             }
 
             var appointment = await _context.Appointments
+                .Include(a => a.Patient)
+                .Include(a => a.Physio)
                 .FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
             {

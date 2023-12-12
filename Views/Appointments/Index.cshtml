@@ -13,12 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PatientID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhysioID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.AppointmentDate)
             </th>
             <th>
@@ -36,18 +30,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.HasScans)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Physio)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PatientID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhysioID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AppointmentDate)
             </td>
@@ -65,6 +59,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HasScans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.PatientId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Physio.PhysioId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AppointmentID">Edit</a> |

@@ -12,18 +12,6 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhysioID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhysioID)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AppointmentDate)
         </dt>
         <dd class = "col-sm-10">
@@ -40,7 +28,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AppointmentStatus)
-        </dd>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Notes)
@@ -59,6 +46,18 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.HasScans)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Patient.PatientId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Physio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Physio.PhysioId)
         </dd>
     </dl>
     

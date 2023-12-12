@@ -25,7 +25,7 @@ namespace Physiosoft.Data
         {
             modelBuilder.Entity<Physio>(entity =>
             {
-                entity.HasKey(e => e.PhysioId).HasName("PK__PHYSIOS__3214EC07951C13EA");
+                entity.HasKey(e => e.PhysioId).HasName("PK__PHYSIOS__8BB9145E55AAA5F5");
 
                 entity.ToTable("PHYSIOS");
 
@@ -46,8 +46,6 @@ namespace Physiosoft.Data
 
             modelBuilder.Entity<Patient>(entity =>
             {
-                // TODO: CHECK THAT IT WORKS
-                // TODO: WHOLE PROJECT NEEDS MORE WORK THAN ANTICIPATED
                 entity.HasKey(e => e.PatientId).HasName("PK__PATIENTS__4D5CE4769C9C68C2");
 
                 entity.ToTable("PATIENTS");
@@ -67,7 +65,7 @@ namespace Physiosoft.Data
                 entity.Property(e => e.Telephone)
                 .HasMaxLength(50)
                 .HasColumnName("telephone");
-                entity.Property(e => e.address)
+                entity.Property(e => e.Address)
                 .HasMaxLength(100)
                 .HasColumnName("address");
                 entity.Property(e => e.Vat)
@@ -85,7 +83,7 @@ namespace Physiosoft.Data
                 entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");
-                entity.Property(e => e.HasReviewd)
+                entity.Property(e => e.HasReviewed)
                 .HasDefaultValue(false)
                 .HasColumnName("has_reviewed");
                 entity.Property(e => e.PatientIssue)
@@ -105,6 +103,17 @@ namespace Physiosoft.Data
 
                 entity.Property(e => e.AppointmentID).HasColumnName("appointment_id");
 
+                entity.HasOne(d => d.Patient)
+                .WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.PatientID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Appointments_Patients");
+
+                entity.HasOne(d => d.Physio)
+                    .WithMany(p => p.Appointments)
+                    .HasForeignKey(d => d.PhysioID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Appointments_Physios");
 
                 entity.Property(e => e.DurationMinutes)
                .HasMaxLength(3)

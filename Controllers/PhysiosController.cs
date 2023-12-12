@@ -53,7 +53,7 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PhysioId,Firstname,Lastname,Telephone")] Physio physio)
+        public async Task<IActionResult> Create([Bind("Firstname,Lastname,Telephone")] Physio physio)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,24 @@ namespace Physiosoft.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(physio);
+            else
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                     .Select(e => e.ErrorMessage);
+
+                var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorMessage in error.Errors)
+                    {
+                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    }
+                }
+
+                return View(physio);
+            }
         }
 
         // GET: Physios/Edit/5
@@ -77,6 +94,7 @@ namespace Physiosoft.Controllers
             {
                 return NotFound();
             }
+           
             return View(physio);
         }
 
@@ -112,7 +130,24 @@ namespace Physiosoft.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(physio);
+            else
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                     .Select(e => e.ErrorMessage);
+
+                var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorMessage in error.Errors)
+                    {
+                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    }
+                }
+
+                return View(physio);
+            }
         }
 
         // GET: Physios/Delete/5
@@ -130,7 +165,24 @@ namespace Physiosoft.Controllers
                 return NotFound();
             }
 
-            return View(physio);
+            else
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                     .Select(e => e.ErrorMessage);
+
+                var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorMessage in error.Errors)
+                    {
+                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    }
+                }
+
+                return View(physio);
+            }
         }
 
         // POST: Physios/Delete/5

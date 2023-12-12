@@ -61,6 +61,18 @@ namespace Physiosoft.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+            foreach (var error in errors)
+            {
+                foreach (var errorMessage in error.Errors)
+                {
+                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                }
+            }
+
             return View(user);
         }
 
@@ -112,6 +124,17 @@ namespace Physiosoft.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            var errors = ModelState
+                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+            foreach (var error in errors)
+            {
+                foreach (var errorMessage in error.Errors)
+                {
+                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                }
+            }
+
             return View(user);
         }
 
