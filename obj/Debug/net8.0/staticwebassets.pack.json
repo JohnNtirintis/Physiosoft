@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Physiosoft.bundle.scp.css"
     },
     {
+      "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\Login.css",
+      "PackagePath": "staticwebassets\\css\\Login.css"
+    },
+    {
+      "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\Signup.css",
+      "PackagePath": "staticwebassets\\css\\Signup.css"
+    },
+    {
       "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -31,4 +31,8 @@
     <Folder Include="CustomExceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\Login.css" />
+  </ItemGroup>
+
 </Project>

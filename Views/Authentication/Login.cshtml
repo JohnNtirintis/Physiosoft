@@ -7,51 +7,40 @@
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
-          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Views/Authentication/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/Login.css" />
     <title>Login</title>
 </head>
 <body>
 
     <div class="container">
-        <main class="w-50 mx-auto mt-5 p-3 border border-primary rounded-3">
-            <form asp-controller="Authentication" asp-action="Login" method="Post">
-                <div class="row mb-3">
-                    <label for="username" class="col-md-2 col-form-label text-end">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" />
+        <div class="login-container">
+            <form class="login-form" asp-controller="Authentication" asp-action="Login" method="Post">
+                <h3 class="text-center mb-4">Sign in</h3>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Email">
                 </div>
-                <div class="row mb-3">
-                    <label for="password" class="col-md-2 col-form-label text-end">Password</label>
-                    <input type="text" class="form-control" name="password" id="password" placeholder="Enter Password" />
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                 </div>
-                <div class="row mb-3">
-                    <label for="KeepLoggedIn" class="col-md-2 form-check-label text-end">Remember Me</label>
-
-                    <div class="col-md-1">
-                        <input type="checkbox" class="form-check-input" name="KeepLoggedIn" id="KeepLoggedIn" />
-                    </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="KeepLoggedIn">
+                    <label class="form-check-label" for="KeepLoggedIn">Remember me</label>
                 </div>
-                <div class="row mb-3">
-                    <div class="offset-md-2 col-md-3 d-grid">
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
+                <div class="d-grid mb-2">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+                <div class="text-center">
+                    <a href="~/Authentication/Signup" class="custom-link">Create an account!</a>
                 </div>
             </form>
-
-            <div>
-                Don't have an account? Sign up <a href="~/Authentication/Signup">here!</a>
-            </div>
-
-            <div class="mt-5 offset-md-4 text-danger fs-6">
-                @ViewData["ValidateMessage"]
-            </div>
-
-        </main>
-
+        </div>
     </div>
+
 </body>
 </html>

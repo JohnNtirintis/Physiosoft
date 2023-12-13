@@ -1,0 +1,33 @@
+﻿body {
+    background-color: #f7f7f7;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.signup-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.signup-form {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.form-control {
+    border-radius: 0;
+    border: 1px solid #dcdcdc;
+}
+
+.btn-primary {
+    background-color: #0078d4;
+    border: none;
+    border-radius: 0;
+}
+
+.btn-primary:hover {
+    background-color: #005a9e;
+}

@@ -2,6 +2,11 @@ html {
   font-size: 14px;
 }
 
+body {
+    background-color: #f7f7f7;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -17,6 +22,23 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+.footer {
+    background-color: #f7f7f7; /* Light grey background */
+    color: #6c757d; /* Slightly muted text color */
+    padding: 20px 0; /* Padding on top and bottom */
+    font-family: 'Segoe UI', Arial, sans-serif; /* Consistent font style */
+}
+
+.footer a {
+color: #0078d4; /* Blue color for links */
+text-decoration: none; /* No underline */
+}
+
+.footer a:hover {
+    color: #005a9e; /* Darker blue on hover */
+    text-decoration: underline; /* Underline on hover for better UX */
+}
+
+.container {
+    text-align: center; /* Center the content for a modern look */
 }
