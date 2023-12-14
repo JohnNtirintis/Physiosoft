@@ -4,7 +4,7 @@ Physiosoft is a web application designed to manage physios, patients and appoint
 
 ## Features
 
-### Appointment Scheduling: Create, update, and delete appointments.
-### Patient Management: Register and manage patient information.
-### Physiotherapist Profiles: Manage profiles for physiotherapists.
-### Appointment Tracking: View upcoming and past appointments.
+- Appointment Scheduling:  Create, update, and delete appointments.
+- Patient Management: Register and manage patient information.
+- Physiotherapist Profiles: Manage profiles for physiotherapists.
+- Appointment Tracking: View upcoming and past appointments.
