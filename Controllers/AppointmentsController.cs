@@ -115,10 +115,15 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,Notes,PatientIssuse,HasScans")] Appointment appointment)
         {
+            
+
             if (id != appointment.AppointmentID)
             {
                 return NotFound();
             }
+
+            ModelState.Remove("Physio");
+            ModelState.Remove("Patient");
 
             if (ModelState.IsValid)
             {

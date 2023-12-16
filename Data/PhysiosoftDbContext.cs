@@ -128,6 +128,7 @@ namespace Physiosoft.Data
                  .HasMaxLength(500)
                  .HasColumnName("patient_issue");
                 entity.Property(e => e.HasScans)
+                .IsRequired(true)
                 .HasDefaultValue(false)
                 .HasColumnName("has_scans");
             });

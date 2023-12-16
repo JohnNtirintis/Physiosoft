@@ -71,9 +71,6 @@ namespace Physiosoft.Controllers
                 ViewData["ErrorsArray"] = ErrorsArray;
                 return View();
             }
-
-            // 1st param is actionName (webpage/view)
-            // 2nd param is controller (~/Controllers)
             return RedirectToAction("Login", "Authentication");
         }
 

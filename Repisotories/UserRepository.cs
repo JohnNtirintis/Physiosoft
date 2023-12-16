@@ -15,8 +15,8 @@ namespace Physiosoft.Repisotories
 
             var user = new User()
             {
-                Username = request.Username,
-                Email = request.Email,
+                Username = request.Username!,
+                Email = request.Email!,
                 Password = EncryptionUtil.Encrypt(request.Password!),
             };
 
@@ -24,17 +24,6 @@ namespace Physiosoft.Repisotories
             await _context.SaveChangesAsync();
             return true;
         }
-
-        /*public async Task<User?> GetUserAsync(string username, string password)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username); // || x.Email == username
-            if (user is null) return null;
-
-            if (!EncryptionUtil.IsValidPassword(password, user.Password!)) return null;
-
-            return user;
-        }*/
-
         public async Task<User?> GetUserAsync(string username)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Username == username);

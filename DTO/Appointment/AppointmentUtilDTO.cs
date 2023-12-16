@@ -2,6 +2,7 @@
 {
     public class AppointmentUtilDTO : BaseDTO
     {
+        // TODO ADD FLUENT API
         public int PatientID { get; set; }
         public int PhysioID { get; set; }
         public DateTime AppointmentDate { get; set; }

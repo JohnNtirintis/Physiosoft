@@ -42,3 +42,14 @@ text-decoration: none; /* No underline */
 .container {
     text-align: center; /* Center the content for a modern look */
 }
+
+.content-area {
+    margin-bottom: 100px; /* Adjust the value based on the height of your footer */
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Full viewport height */
+}

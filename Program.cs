@@ -33,6 +33,10 @@ namespace Physiosoft
                     options.SlidingExpiration = true;
                 });
 
+            builder.Services.AddDbContext<PhysiosoftDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+               .LogTo(Console.WriteLine, LogLevel.Information));
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
+using Physiosoft.DTO.Physio;
+using Physiosoft.DTO.User;
+using Physiosoft.Repisotories;
 
 namespace Physiosoft.Controllers
 {
@@ -42,21 +45,28 @@ namespace Physiosoft.Controllers
             return View(physio);
         }
 
+
         // GET: Physios/Create
         public IActionResult Create()
         {
-            return View();
+            return View(new PhysioUtilDTO());
         }
 
-        // POST: Physios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Firstname,Lastname,Telephone")] Physio physio)
+        public async Task<IActionResult> Create(PhysioUtilDTO request)
         {
             if (ModelState.IsValid)
             {
+
+                var physio = new Physio
+                {
+                    Firstname = request.Firstname,
+                    Lastname = request.Lastname,
+                    Telephone = request.Telephone
+                };
+
                 _context.Add(physio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -77,11 +87,49 @@ namespace Physiosoft.Controllers
                     }
                 }
 
-                return View(physio);
+                return View(request);
             }
-        }
 
-        // GET: Physios/Edit/5
+        }
+            // GET: Physios/Create
+            /* public IActionResult Create()
+             {
+                 return View();
+             }
+
+             Post
+             [HttpPost]
+             [ValidateAntiForgeryToken]
+             public async Task<IActionResult> Create([Bind("Firstname,Lastname,Telephone")] Physio physio)
+             {
+                 if (ModelState.IsValid)
+                 {
+                     _context.Add(physio);
+                     await _context.SaveChangesAsync();
+                     return RedirectToAction(nameof(Index));
+                 }
+                 else
+                 {
+                     var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                          .Select(e => e.ErrorMessage);
+
+                     var errors = ModelState
+                     .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                     foreach (var error in errors)
+                     {
+                         foreach (var errorMessage in error.Errors)
+                         {
+                             Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                         }
+                     }
+
+                     return View(physio);
+                 }
+             }*/
+
+            // GET: Physios/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

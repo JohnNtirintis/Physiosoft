@@ -39,12 +39,6 @@ namespace Physiosoft.Data
         public virtual Patient Patient { get; set; }
         public virtual Physio Physio { get; set; }
 
-/*        public Appointment()
-        {
-            Patient = new Patient();
-            Physio = new Physio();
-        }*/
-
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var now = DateTime.Now;

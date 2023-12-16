@@ -1,4 +1,6 @@
-﻿namespace Physiosoft.DTO.User
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Physiosoft.DTO.User
 {
     public class UserUtilDTO : BaseDTO
     { 

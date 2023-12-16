@@ -51,6 +51,7 @@ namespace Physiosoft.Controllers
         // POST: Patients/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // TODO: Cant see last input and create button
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PatientId,Firstname,Lastname,Telephone,Address,Vat,Ssn,RegNum,Notes,Email,HasReviewed,PatientIssue")] Patient patient)
@@ -82,6 +83,7 @@ namespace Physiosoft.Controllers
         }
 
         // GET: Patients/Edit/5
+        // TODO  Cant see the last input-label
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

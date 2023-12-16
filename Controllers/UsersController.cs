@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
+using Physiosoft.DTO.User;
+using Physiosoft.Repisotories;
 
 namespace Physiosoft.Controllers
 {
     public class UsersController : Controller
     {
         private readonly PhysiosoftDbContext _context;
+        private readonly UserRepository _userRepository;
 
-        public UsersController(PhysiosoftDbContext context)
+        public UsersController(PhysiosoftDbContext context, UserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         // GET: Users
@@ -45,7 +50,7 @@ namespace Physiosoft.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            return View();
+            return View(new UserSignupDTO());
         }
 
         // POST: Users/Create
@@ -53,27 +58,22 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Username,Password,Email")] User user)
+        public async Task<IActionResult> Create(UserSignupDTO request)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            var errors = ModelState
-                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
-
-            foreach (var error in errors)
-            {
-                foreach (var errorMessage in error.Errors)
+                bool signupSuccess = await _userRepository.SignupUserAsync(request);
+                if (signupSuccess)
                 {
-                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "User already exists.");
                 }
             }
 
-            return View(user);
+            return View(request);
         }
 
         // GET: Users/Edit/5
@@ -89,7 +89,15 @@ namespace Physiosoft.Controllers
             {
                 return NotFound();
             }
-            return View(user);
+
+            var userPatchDTO = new UserPatchDTO
+            {
+                Username = user.Username,
+                Email = user.Email,
+                Password = user.Password,
+            };
+
+            return View(userPatchDTO);
         }
 
         // POST: Users/Edit/5
@@ -97,47 +105,43 @@ namespace Physiosoft.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Password,Email")] User user)
+        //public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Password,Email")] User user)
+        public async Task<IActionResult> Edit(int id, UserPatchDTO request)
         {
-            if (id != user.UserId)
+            if(!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            var user = await _context.Users.FindAsync(id);
+            if(user == null) 
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(user.UserId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            var errors = ModelState
-                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+            user.Username = request.Username!;
+            user.Email = request.Email!;
+            user.Password = request.Password!;
 
-            foreach (var error in errors)
+            try
             {
-                foreach (var errorMessage in error.Errors)
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                if (!UserExists(user.UserId))
                 {
-                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
                 }
             }
-
-            return View(user);
+            return RedirectToAction(nameof(Index));
         }
-
+         
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

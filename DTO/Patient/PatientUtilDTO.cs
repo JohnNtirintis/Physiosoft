@@ -2,6 +2,7 @@
 {
     public class PatientUtilDTO : BaseDTO
     {
+        // TODO ADD FLUENT API
         public string? Firstname { get; set; }
         public string Lastname { get; set; }
         public string Telephone { get; set; }
