@@ -1,10 +1,34 @@
 # Physiosoft
 
-Physiosoft is a web application designed to manage physios, patients and appointments for a Physiotherapy facility. It allows for scheduling and tracking appointments for patients.
+Physiosoft is a comprehensive web application tailored for physiotherapy facilities. It streamlines the process of managing physiotherapists, patients, and appointments, offering a centralized platform for scheduling and tracking sessions. The application is built with a focus on ease of use and efficiency in managing daily operations of a physiotherapy center.
 
 ## Features
 
-- Appointment Scheduling:  Create, update, and delete appointments.
-- Patient Management: Register and manage patient information.
-- Physiotherapist Profiles: Manage profiles for physiotherapists.
-- Appointment Tracking: View upcoming and past appointments.
+- **Appointment Scheduling**:  Users can create, update, and delete appointments efficiently, facilitating smooth operation of the physiotherapy sessions.
+- **Patient Management**: Allows for the registration and management of patient information, ensuring that patient records are easily accessible and well-organized.
+- **Physiotherapist Profiles**: Manage and maintain detailed profiles for physiotherapists, including their schedules, specializations, and availability.
+- **Appointment Tracking**: Provides a comprehensive view of upcoming and past appointments, aiding in better planning and resource allocation.
+
+## Technical Architecture
+
+Physiosoft employs a robust MVC layered architecture, ensuring separation of concerns and making the application scalable and maintainable. The architecture is outlined as follows:
+
+- **Data Access Object (DAO) / Data Transfer Object (DTO)**: For handling data interactions and transfer between different application layers.
+- **Data Layer**: Manages the application's data structures, it's logic and its interaction with the database.
+- **View Layer**: Manages the user interface and presentation logic.
+- **Controllers**: Serve as an intermediary between the Model and View layers, handling user input and responses.
+
+In addition to this, Physiosoft integrates various other technologies and practices:
+
+- **Repository Architecture**: Incorporating IBaseRepository and BaseRepository patterns for abstracted data operations, alongside IUserRepository and UserRepository for user-specific data handling.
+- **Entity Framework**: Utilizes Entity Framework for object-relational mapping, simplifying data access and manipulation.
+- **DbContext and Fluent API**: Manages database contexts and employs Fluent API for advanced configuration and mappings.
+- **Validators**: Ensures data integrity and validation throughout the application.
+- **Custom Exceptions**: Implements custom exception handling for clearer and more precise error management.
+- **NLogger**: For efficient and effective logging of application activities and errors.
+- **User Registration/Login/Validation**: Manages user accounts, authentication, and authorization securely.
+
+## Tech Stack
+- **C# and .NET 8**: Forms the core of backend development, providing a powerful and efficient programming environment.
+- **SQL Database**: Utilizes SQL databases for robust and reliable data storage.
+- **Razor, Bootstrap, and JQuery**: These technologies enhance the front-end development, ensuring a responsive and user-friendly interface.
