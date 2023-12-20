@@ -26,11 +26,14 @@ namespace Physiosoft.Data
         public int DurationMinutes { get; set; }
         [Required]
         [Column("appointment_status")]
+        [MaxLength(500, ErrorMessage = "Maximum of 50 characters allowed")]
         public string? AppointmentStatus { get; set; }
         [Column("notes")]
+        [MaxLength(500, ErrorMessage = "Maximum of 500 characters allowed")]
         public string? Notes { get; set; }
         [Required]
         [Column("patient_issue")]
+        [MaxLength(500, ErrorMessage = "Maximum of 500 characters allowed")]
         public string PatientIssuse { get; set; }
         [Required]
         [Column("has_scans")]
@@ -53,6 +56,11 @@ namespace Physiosoft.Data
             if (AppointmentDate.Hour < 9 || AppointmentDate.Hour > 17) // 5 PM is 17 in 24-hour time
             {
                 yield return new ValidationResult("The appointment time must be between 9 AM and 5 PM.", new[] { nameof(AppointmentDate) });
+            }
+
+            if (AppointmentDate.DayOfWeek == DayOfWeek.Saturday || AppointmentDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                yield return new ValidationResult("The appointment date must be on a workday (Monday to Friday).", new[] { nameof(AppointmentDate) });
             }
         }
     }

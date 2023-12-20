@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Physiosoft.Configuration;
 using Physiosoft.DAO;
 using Physiosoft.Data;
+using Physiosoft.Logger;
 using Physiosoft.Repisotories;
 using Physiosoft.Service;
-using Serilog;
 
 namespace Physiosoft
 {
@@ -13,18 +13,18 @@ namespace Physiosoft
     {
         public static void Main(string[] args)
         {
+            string connectionName = "DefaultConnection";
+
+            NLogger.LogInfo($"Creating Builder with args");
             var builder = WebApplication.CreateBuilder(args);
 
-            var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+            NLogger.LogInfo($"Creating connection");
+            var connString = builder.Configuration.GetConnectionString(connectionName);
             builder.Services.AddDbContext<PhysiosoftDbContext>(options => options.UseSqlServer(connString));
             builder.Services.AddAutoMapper(typeof(MapperConfig));
 
-            /*builder.Host.UseSerilog((context, config) =>
-            {
-                config.ReadFrom.Configuration(context.Configuration);
-            });*/
-
             // Authentication services 
+            NLogger.LogInfo($"Adding Authentication Services");
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -33,17 +33,18 @@ namespace Physiosoft
                     options.SlidingExpiration = true;
                 });
 
+            NLogger.LogInfo($"Adding Ddatabase Context via");
             builder.Services.AddDbContext<PhysiosoftDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                options.UseSqlServer(builder.Configuration.GetConnectionString(connectionName))
                .LogTo(Console.WriteLine, LogLevel.Information));
 
-
-            // Add services to the container.
+            NLogger.LogInfo($"Adding Services to the container/builder");
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IUserDAO, UserDaoImpl>();
             builder.Services.AddScoped<UserAuthenticationService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+            NLogger.LogInfo($"Building app");
             var app = builder.Build();
 
             app.UseHttpsRedirection();
@@ -58,6 +59,7 @@ namespace Physiosoft
                 name: "default",
                 pattern: "{controller=Authentication}/{action=Login}/{id?}");
 
+            NLogger.LogInfo("Starting Application");
             app.Run();
         }
     }

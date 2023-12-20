@@ -248,15 +248,6 @@ D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Microsoft.IdentityModel.Proto
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.AspNetCore.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Sinks.Console.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
-D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\Serilog.Sinks.File.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\SQLitePCLRaw.core.dll
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll
@@ -292,3 +283,7 @@ D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\runtimes\win-x86\native\e_sql
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 D:\Projects\Physiosoft\Physiosoft\obj\Debug\net8.0\Physiosoft.sourcelink.json
 D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\BCrypt.Net-Core.dll
+D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\NLog.dll
+D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\NLog.Web.AspNetCore.dll
+D:\Projects\Physiosoft\Physiosoft\bin\Debug\net8.0\NLog.config
