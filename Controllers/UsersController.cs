@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
 using Physiosoft.DTO.User;
 using Physiosoft.Repisotories;
+using Physiosoft.Logger;
 
 namespace Physiosoft.Controllers
 {
@@ -34,6 +35,7 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"Error! Given ID was null");
                 return NotFound();
             }
 
@@ -41,6 +43,7 @@ namespace Physiosoft.Controllers
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
+                NLogger.LogError($"Error! Didnt find user with ID: {id}");
                 return NotFound();
             }
 
@@ -60,20 +63,35 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserSignupDTO request)
         {
-            if (ModelState.IsValid)
+            try
             {
-                bool signupSuccess = await _userRepository.SignupUserAsync(request);
-                if (signupSuccess)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction(nameof(Index));
+                    bool signupSuccess = await _userRepository.SignupUserAsync(request);
+                    if (signupSuccess)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "User already exists.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (IsUniqueConstraintViolation(ex))
+                {
+                    ModelState.AddModelError("", "The entered value already exists. Please use a unique value.");
+                    NLogger.LogError($"Duplicate value error. Error: {ex.Message}");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "User already exists.");
+                    NLogger.LogError($"Error occurred while signing up a user entity. Ex: {ex.Message}");
                 }
             }
 
-            return View(request);
+                return View(request);
         }
 
         // GET: Users/Edit/5
@@ -81,12 +99,14 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"ID in User EDIT was null.");
                 return NotFound();
             }
 
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
+                NLogger.LogError($"User in EDIT with id {id} was NOT found.");
                 return NotFound();
             }
 
@@ -116,6 +136,7 @@ namespace Physiosoft.Controllers
             var user = await _context.Users.FindAsync(id);
             if(user == null) 
             {
+                NLogger.LogError($"User in EDIT with id {id} was NOT found.");
                 return NotFound();
             }
 
@@ -132,12 +153,17 @@ namespace Physiosoft.Controllers
             {
                 if (!UserExists(user.UserId))
                 {
+                    NLogger.LogError($"Errorm user with id: {user.UserId} doesnt exist!");
                     return NotFound();
                 }
                 else
                 {
                     throw;
                 }
+            }
+            catch(Exception ex)
+            {
+                NLogger.LogError($"Error! {ex.Message}");
             }
             return RedirectToAction(nameof(Index));
         }
@@ -147,6 +173,7 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"Given ID was null");
                 return NotFound();
             }
 
@@ -154,6 +181,7 @@ namespace Physiosoft.Controllers
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
+                NLogger.LogError($"User in EDIT with id {id} was NOT found.");
                 return NotFound();
             }
 
@@ -169,6 +197,9 @@ namespace Physiosoft.Controllers
             if (user != null)
             {
                 _context.Users.Remove(user);
+            }else
+            {
+                NLogger.LogError($"User in EDIT with id {id} was NOT found.");
             }
 
             await _context.SaveChangesAsync();
@@ -178,6 +209,12 @@ namespace Physiosoft.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
+        }
+
+        private bool IsUniqueConstraintViolation(DbUpdateException ex)
+        {
+            // Check if the exception is due to a unique constraint violation
+            return ex.InnerException?.Message.Contains("unique constraint") ?? false;
         }
     }
 }

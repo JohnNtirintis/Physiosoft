@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
+using Physiosoft.Logger;
 
 namespace Physiosoft.Controllers
 {
@@ -21,8 +22,15 @@ namespace Physiosoft.Controllers
         // GET: Appointments
         public async Task<IActionResult> Index()
         {
-            var physiosoftDbContext = _context.Appointments.Include(a => a.Patient).Include(a => a.Physio);
-            return View(await physiosoftDbContext.ToListAsync());
+            try {
+                var physiosoftDbContext = _context.Appointments.Include(a => a.Patient).Include(a => a.Physio);
+                return View(await physiosoftDbContext.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error in calling appointments to list: {ex.Message}");
+            }
+            
         }
 
         // GET: Appointments/Details/5
@@ -30,6 +38,7 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"Error! Given id in appointments was null.");
                 return NotFound();
             }
 
@@ -39,6 +48,7 @@ namespace Physiosoft.Controllers
                 .FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
             {
+                NLogger.LogError($"Error! Didnt find an appointment with id: {id}");
                 return NotFound();
             }
 
@@ -82,7 +92,8 @@ namespace Physiosoft.Controllers
             {
                 foreach (var errorMessage in error.Errors)
                 {
-                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    NLogger.LogError($"Key: { error.Key}, Error: { errorMessage}");
                 }
             }
 
@@ -95,12 +106,14 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"Error! Given ID in appointments edit was null");
                 return NotFound();
             }
 
             var appointment = await _context.Appointments.FindAsync(id);
             if (appointment == null)
             {
+                NLogger.LogError($"Error! Didnt find an appointment with the ID: {id}");
                 return NotFound();
             }
             ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
@@ -119,6 +132,7 @@ namespace Physiosoft.Controllers
 
             if (id != appointment.AppointmentID)
             {
+                NLogger.LogError($"Error! Didnt find an appointment with an ID: {id}");
                 return NotFound();
             }
 
@@ -136,6 +150,7 @@ namespace Physiosoft.Controllers
                 {
                     if (!AppointmentExists(appointment.AppointmentID))
                     {
+                        NLogger.LogError($"Error! Didnt find an appointment with an ID: {id}");
                         return NotFound();
                     }
                     else
@@ -156,10 +171,10 @@ namespace Physiosoft.Controllers
             {
                 foreach (var errorMessage in error.Errors)
                 {
-                    Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    NLogger.LogError($"Key: { error.Key}, Error: { errorMessage}");
+                    //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
                 }
             }
-
             return View(appointment);
         }
 
@@ -168,6 +183,7 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"Error! ID given in appointments delete was null");
                 return NotFound();
             }
 
@@ -177,6 +193,7 @@ namespace Physiosoft.Controllers
                 .FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
             {
+                NLogger.LogError($"Error! Didnt find an appointment with an ID: {id}");
                 return NotFound();
             }
 
@@ -188,19 +205,34 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
-            if (appointment != null)
+            try
             {
-                _context.Appointments.Remove(appointment);
-            }
+                var appointment = await _context.Appointments.FindAsync(id);
+                if (appointment != null)
+                {
+                    _context.Appointments.Remove(appointment);
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch(Exception ex)
+            {
+                NLogger.LogError($"Error! Coudlnt delete appointment with id: {id}. Exception: {ex.Message}");
+            }
+            
         }
 
         private bool AppointmentExists(int id)
         {
             return _context.Appointments.Any(e => e.AppointmentID == id);
+        }
+
+        private bool IsUniqueConstraintViolation(DbUpdateException ex)
+        {
+            // TODO
+            // Check if the exception is due to a unique constraint violation
+            return ex.InnerException?.Message.Contains("unique constraint") ?? false;
         }
     }
 }

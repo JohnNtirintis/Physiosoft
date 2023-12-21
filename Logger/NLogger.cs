@@ -7,30 +7,37 @@ namespace Physiosoft.Logger
     public class NLogger 
     {
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        private static string logMessage;
 
-        public static void LogInfo(string message)
+        public static void LogInfo(string message, [CallerMemberName] string memberName = "")
         {
-            logger.Info(message);
+            logMessage = $"{memberName}: {message}";
+            logger.Info(logMessage);
         }
 
-        public static void LogWarn(string message)
+        public static void LogWarn(string message, [CallerMemberName] string memberName = "")
         {
-            logger.Warn(message);
+            logMessage = $"{memberName}: {message}";
+            logger.Warn(logMessage);
         }
 
-        public static void LogError(string message)
+        public static void LogError(string message, [CallerMemberName] string memberName = "")
         {
-            logger.Error(message);
+            logMessage = $"{memberName}: {message}";
+            logger.Error(logMessage);
         }
 
-        public static void LogError(Exception ex, string message)
+        public static 
+            void LogError(Exception ex, string message, [CallerMemberName] string memberName = "")
         {
-            logger.Error(ex, message);
+            logMessage = $"{memberName}: {message}";
+            logger.Error(logMessage);
         }
 
-        public static void LogDebug(string message)
+        public static void LogDebug(string message, [CallerMemberName] string memberName = "")
         {
-            logger.Debug(message);
+            logMessage = $"{memberName}: {message}";
+            logger.Debug(logMessage);
         }
     }
 }

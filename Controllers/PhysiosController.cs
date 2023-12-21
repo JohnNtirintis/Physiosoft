@@ -25,8 +25,15 @@ namespace Physiosoft.Controllers
         // GET: Physios
         public async Task<IActionResult> Index()
         {
-            NLogger.LogInfo($"{nameof(Index)}, calling physios to list");
-            return View(await _context.Physios.ToListAsync());
+            try
+            {
+                return View(await _context.Physios.ToListAsync());
+            } 
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error! Ex: {ex.Message}");
+            }
+            
         }
 
         // GET: Physios/Details/5
@@ -111,11 +118,11 @@ namespace Physiosoft.Controllers
                 }
                 else
                 {
-                    NLogger.LogError(ex, "Error occurred while creating a physio entity.");
+                    NLogger.LogError($"Error occurred while creating a physio entity. Ex: {ex.Message}");
                 }
             } catch (Exception ex)
             {
-                NLogger.LogError(ex, "Error occurred while creating a physio entity.");
+                NLogger.LogError($"Error occurred while creating a physio entity. Ex: {ex.Message}");
             }
 
             NLogger.LogInfo($"Returning Physio Create view with errors.");
@@ -169,6 +176,7 @@ namespace Physiosoft.Controllers
             }
 
             var physio = await _context.Physios.FindAsync(id);
+
             if (physio == null)
             {
                 NLogger.LogError($"Physio in EDIT with id {id} was NOT found.");
@@ -209,6 +217,9 @@ namespace Physiosoft.Controllers
                     {
                         throw;
                     }
+                } catch (Exception ex)
+                {
+                    NLogger.LogError($"Error! {ex.Message}");
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -297,9 +308,7 @@ namespace Physiosoft.Controllers
 
         private bool IsUniqueConstraintViolation(DbUpdateException ex)
         {
-            // TODO
-            // Implement logic to check if the exception is due to a unique constraint violation
-            // This might involve checking the inner exception and its message
+            // Check if the exception is due to a unique constraint violation
             return ex.InnerException?.Message.Contains("unique constraint") ?? false;
         }
     }

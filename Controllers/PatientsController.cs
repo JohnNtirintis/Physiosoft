@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
+using Physiosoft.Logger;
 
 namespace Physiosoft.Controllers
 {
@@ -21,7 +22,15 @@ namespace Physiosoft.Controllers
         // GET: Patients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Patients.ToListAsync());
+            try
+            {
+                return View(await _context.Patients.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error! Ex: {ex.Message}");
+            }
+
         }
 
         // GET: Patients/Details/5
@@ -29,6 +38,7 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"ID for patient was null in details view.");
                 return NotFound();
             }
 
@@ -36,6 +46,7 @@ namespace Physiosoft.Controllers
                 .FirstOrDefaultAsync(m => m.PatientId == id);
             if (patient == null)
             {
+                NLogger.LogError($"Patient with id: {id} was not found in details view.");
                 return NotFound();
             }
 
@@ -56,30 +67,51 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PatientId,Firstname,Lastname,Telephone,Address,Vat,Ssn,RegNum,Notes,Email,HasReviewed,PatientIssue")] Patient patient)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(patient);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
-                                                     .Select(e => e.ErrorMessage);
-
-                var errors = ModelState
-                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
-
-                foreach (var error in errors)
+                if (ModelState.IsValid)
                 {
-                    foreach (var errorMessage in error.Errors)
-                    {
-                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
-                    }
+                    _context.Add(patient);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
+                else
+                {
+                    var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                                         .Select(e => e.ErrorMessage);
 
-                return View(patient);
+                    var errors = ModelState
+                    .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                    foreach (var error in errors)
+                    {
+                        foreach (var errorMessage in error.Errors)
+                        {
+                            Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                        }
+                    }
+
+
+                }
+            } catch (DbUpdateException ex)
+            {
+                if (IsUniqueConstraintViolation(ex))
+                {
+                    ModelState.AddModelError("", "The entered value already exists. Please use a unique value.");
+                }
+                else
+                {
+                    NLogger.LogError($"Error occurred while creating a patient entity. Ex: {ex.Message}");
+                }
             }
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error occurred while creating a patient entity. Ex: {ex.Message}");
+            }
+
+
+            NLogger.LogInfo($"Returning patient Create view with errors.");
+            return View(patient);
         }
 
         // GET: Patients/Edit/5
@@ -88,12 +120,15 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"ID in Patient EDIT was null.");
                 return NotFound();
             }
 
             var patient = await _context.Patients.FindAsync(id);
+
             if (patient == null)
             {
+                NLogger.LogError($"Patient in EDIT with id {id} was NOT found.");
                 return NotFound();
             }
             return View(patient);
@@ -108,6 +143,7 @@ namespace Physiosoft.Controllers
         {
             if (id != patient.PatientId)
             {
+                NLogger.LogError($"Didnt find Patient with ID: {id}");
                 return NotFound();
             }
 
@@ -122,6 +158,7 @@ namespace Physiosoft.Controllers
                 {
                     if (!PatientExists(patient.PatientId))
                     {
+                        NLogger.LogError($"Didnt find Patient with ID: {id}");
                         return NotFound();
                     }
                     else
@@ -143,7 +180,8 @@ namespace Physiosoft.Controllers
                 {
                     foreach (var errorMessage in error.Errors)
                     {
-                        Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                        //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                        NLogger.LogError($"Key: {error.Key}, Error: {errorMessage}");
                     }
                 }
 
@@ -156,6 +194,7 @@ namespace Physiosoft.Controllers
         {
             if (id == null)
             {
+                NLogger.LogError($"ID in Patients Delete was null.");
                 return NotFound();
             }
 
@@ -163,6 +202,7 @@ namespace Physiosoft.Controllers
                 .FirstOrDefaultAsync(m => m.PatientId == id);
             if (patient == null)
             {
+                NLogger.LogError($"Patient in Delete with id {id} was NOT found and returned null.");
                 return NotFound();
             }
 
@@ -188,5 +228,11 @@ namespace Physiosoft.Controllers
         {
             return _context.Patients.Any(e => e.PatientId == id);
         }
-    }
+
+        private bool IsUniqueConstraintViolation(DbUpdateException ex)
+        {
+            // Check if the exception is due to a unique constraint violation
+            return ex.InnerException?.Message.Contains("unique constraint") ?? false;
+        }
+    }  
 }

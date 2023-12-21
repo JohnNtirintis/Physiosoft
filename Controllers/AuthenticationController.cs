@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Physiosoft.DTO.User;
 using Physiosoft.Models;
-
+using Physiosoft.Logger;
 using System.Security.Claims;
 using Physiosoft.Service;
 using Physiosoft.Repisotories;
@@ -54,6 +54,7 @@ namespace Physiosoft.Controllers
                     foreach (var error in entry.Errors)
                     {
                         ErrorsArray.Add(new Error("", error.ErrorMessage, ""));
+                        NLogger.LogError($"Error: {error.errorMessage}");
                     }
 
                     ViewData["ErrorsArray"] = ErrorsArray;
@@ -65,9 +66,18 @@ namespace Physiosoft.Controllers
             {
                 await _userRepository.SignupUserAsync(request);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ErrorsArray.Add(new Error("", e.Message, ""));
+                if (IsUniqueConstraintViolation(ex))
+                {
+                    ModelState.AddModelError("", "The entered value already exists. Please use a unique value.");
+                }
+                else
+                {
+                    NLogger.LogError($"Error occurred while signing up a user entity.");
+                }
+                NLogger.LogError($"Error: {ex.Message}");
+                ErrorsArray.Add(new Error("", ex.Message, ""));
                 ViewData["ErrorsArray"] = ErrorsArray;
                 return View();
             }
@@ -77,48 +87,64 @@ namespace Physiosoft.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDTO credentials, bool KeepLoggedIn)
         {
-            //var user = await _userAuthenticationService.AuthenticateUserAsync(credentials.Username, credentials.Password);
-            var user = await _userDAO.GetUserAsync(credentials.Username);
-
-            if (user != null && EncryptionUtil.IsValidPassword(credentials.Password, user.Password))
+            try
             {
-                var claims = new List<Claim>()
+                //var user = await _userAuthenticationService.AuthenticateUserAsync(credentials.Username, credentials.Password);
+                var user = await _userDAO.GetUserAsync(credentials.Username);
+
+                if (user != null && EncryptionUtil.IsValidPassword(credentials.Password, user.Password))
+                {
+                    var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, credentials.Username),
                 };
 
-                if (user.IsAdmin)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                    if (user.IsAdmin)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                    }
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var authProperties = new AuthenticationProperties()
+                    {
+                        IsPersistent = KeepLoggedIn,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
+
+                    // Successful login 
+                    return RedirectToAction("Index", "Home");
                 }
 
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var authProperties = new AuthenticationProperties()
-                {
-                    IsPersistent = KeepLoggedIn,
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
-                };
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
-
-                // Successful login 
-                Console.WriteLine("Successful login");
-                return RedirectToAction("Index", "Home");
+                // If ModelState is not valid, return to the login view with validation errors
+                return View(credentials);
+            } 
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error: in Login! Exception: {ex.Message}");
             }
-            Console.WriteLine(" Else case");
-                // TODO
-                // handle else case
-
-            // If ModelState is not valid, return to the login view with validation errors
-            return View(credentials);
         }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Index", "Home");
+            } 
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error: in Logout! Exception: {ex.Message}");
+            }      
+        }
+
+        private bool IsUniqueConstraintViolation(DbUpdateException ex)
+        {
+            // Check if the exception is due to a unique constraint violation
+            return ex.InnerException?.Message.Contains("unique constraint") ?? false;
         }
     }
 }
