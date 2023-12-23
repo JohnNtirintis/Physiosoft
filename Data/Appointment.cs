@@ -13,15 +13,16 @@ namespace Physiosoft.Data
         public int AppointmentID { get; set; }
         [Required]
         [Column("patient_id")]
-        [Range(1, int.MaxValue, ErrorMessage = "ID must be greater than 0")]
+        [Range(1, int.MaxValue, ErrorMessage = "Patient ID must be greater than 0")]
         public int PatientID { get; set; }
         [Column("physio_id")]
-        [Range(1, int.MaxValue, ErrorMessage = "ID must be greater than 0")]
+        [Range(1, int.MaxValue, ErrorMessage = "Physio ID must be greater than 0")]
         public int? PhysioID { get; set; }
         [Required]
         [Column("appointment_date")]
         public DateTime AppointmentDate { get; set; }
         [Required]
+        [Range(1, 120, ErrorMessage = "Duration must be between 1 and 120 minutes")]
         [Column("duration_minutes")]
         public int DurationMinutes { get; set; }
         [Required]

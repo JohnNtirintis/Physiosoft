@@ -9,6 +9,7 @@ using Physiosoft.Service;
 using Physiosoft.Repisotories;
 using Physiosoft.DAO;
 using Physiosoft.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace Physiosoft.Controllers
 {
@@ -54,7 +55,7 @@ namespace Physiosoft.Controllers
                     foreach (var error in entry.Errors)
                     {
                         ErrorsArray.Add(new Error("", error.ErrorMessage, ""));
-                        NLogger.LogError($"Error: {error.errorMessage}");
+                        NLogger.LogError($"Error: {error.ErrorMessage}");
                     }
 
                     ViewData["ErrorsArray"] = ErrorsArray;
@@ -65,8 +66,7 @@ namespace Physiosoft.Controllers
             try
             {
                 await _userRepository.SignupUserAsync(request);
-            }
-            catch (Exception ex)
+            }catch (DbUpdateException ex)
             {
                 if (IsUniqueConstraintViolation(ex))
                 {
@@ -76,6 +76,9 @@ namespace Physiosoft.Controllers
                 {
                     NLogger.LogError($"Error occurred while signing up a user entity.");
                 }
+            }
+            catch (Exception ex)
+            {        
                 NLogger.LogError($"Error: {ex.Message}");
                 ErrorsArray.Add(new Error("", ex.Message, ""));
                 ViewData["ErrorsArray"] = ErrorsArray;
@@ -118,13 +121,15 @@ namespace Physiosoft.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                // If ModelState is not valid, return to the login view with validation errors
-                return View(credentials);
+                
             } 
             catch (Exception ex)
             {
                 NLogger.LogError($"Error: in Login! Exception: {ex.Message}");
+                
             }
+            // If ModelState is not valid, return to the login view with validation errors
+            return View(credentials);
         }
 
         [HttpPost]
@@ -138,6 +143,7 @@ namespace Physiosoft.Controllers
             catch (Exception ex)
             {
                 NLogger.LogError($"Error: in Logout! Exception: {ex.Message}");
+                return BadRequest("An error occurred while logging out.");
             }      
         }
 

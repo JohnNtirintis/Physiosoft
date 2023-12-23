@@ -78,7 +78,7 @@ namespace Physiosoft.Controllers
                     }
                 }
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
                 if (IsUniqueConstraintViolation(ex))
                 {
@@ -89,6 +89,10 @@ namespace Physiosoft.Controllers
                 {
                     NLogger.LogError($"Error occurred while signing up a user entity. Ex: {ex.Message}");
                 }
+            }
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error occurred while signing up a user entity. Ex: {ex.Message}");
             }
 
                 return View(request);

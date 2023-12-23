@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
 using Physiosoft.DTO.Physio;
@@ -32,6 +33,7 @@ namespace Physiosoft.Controllers
             catch (Exception ex)
             {
                 NLogger.LogError($"Error! Ex: {ex.Message}");
+                return StatusCode(500); // Return a status code indicating an internal server error
             }
             
         }
@@ -104,69 +106,36 @@ namespace Physiosoft.Controllers
                     {
                         foreach (var errorMessage in error.Errors)
                         {
-                            //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
                             NLogger.LogError($"Key: {error.Key}, Error: {errorMessage}");
                         }
                     }
+                    NLogger.LogInfo($"Returning Physio Create view with errors.");
+                    return View(request);
                 }
             }
             catch (DbUpdateException ex)
             {
                 if (IsUniqueConstraintViolation(ex))
                 {
-                    ModelState.AddModelError("", "The entered value already exists. Please use a unique value.");
+                    string duplicateColumn = GetDuplicateColumn(ex);
+                    NLogger.LogError($"Duplicate value Error {duplicateColumn} occurred while editing a physio entity. Ex: {ex.Message}");
+                    ModelState.AddModelError(duplicateColumn, $"The {duplicateColumn} field is required.");
+                    return View(request);
                 }
                 else
                 {
-                    NLogger.LogError($"Error occurred while creating a physio entity. Ex: {ex.Message}");
+                    NLogger.LogError($"Error in physio create! Exception: {ex.Message}");
+                    return StatusCode(500);
                 }
-            } catch (Exception ex)
-            {
-                NLogger.LogError($"Error occurred while creating a physio entity. Ex: {ex.Message}");
             }
-
-            NLogger.LogInfo($"Returning Physio Create view with errors.");
-            return View(request);
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error! Exception: {ex.Message}");
+                return StatusCode(500);
+            }
         }
-            // GET: Physios/Create
-            /* public IActionResult Create()
-             {
-                 return View();
-             }
 
-             Post
-             [HttpPost]
-             [ValidateAntiForgeryToken]
-             public async Task<IActionResult> Create([Bind("Firstname,Lastname,Telephone")] Physio physio)
-             {
-                 if (ModelState.IsValid)
-                 {
-                     _context.Add(physio);
-                     await _context.SaveChangesAsync();
-                     return RedirectToAction(nameof(Index));
-                 }
-                 else
-                 {
-                     var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
-                                                          .Select(e => e.ErrorMessage);
-
-                     var errors = ModelState
-                     .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
-
-                     foreach (var error in errors)
-                     {
-                         foreach (var errorMessage in error.Errors)
-                         {
-                             Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
-                         }
-                     }
-
-                     return View(physio);
-                 }
-             }*/
-
-            // GET: Physios/Edit/5
-        
+        // GET: Physios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -205,23 +174,29 @@ namespace Physiosoft.Controllers
                 {
                     _context.Update(physio);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch(DbUpdateException ex)
                 {
-                    if (!PhysioExists(physio.PhysioId))
+                    if (IsUniqueConstraintViolation(ex))
                     {
-                        NLogger.LogError($"Physio in EDIT with id {physio.PhysioId} was NOT found.");
-                        return NotFound();
+                        string duplicateColumn = GetDuplicateColumn(ex);
+                        NLogger.LogError($"Duplicate value Error {duplicateColumn} occurred while editing a physio entity. Ex: {ex.Message}");
+                        ModelState.AddModelError(duplicateColumn, $"The {duplicateColumn} field is required.");
+                        return View(physio);
                     }
                     else
                     {
-                        throw;
+                        NLogger.LogError($"Error in physio create! Exception: {ex.Message}");
+                        return StatusCode(500);
                     }
-                } catch (Exception ex)
+                }     
+                catch(Exception ex)
                 {
-                    NLogger.LogError($"Error! {ex.Message}");
+                    ModelState.AddModelError("", "An Error has occured.");
+                    NLogger.LogError($"Error occurred while editing a physios entity. Ex: {ex.Message}");
+                    return StatusCode(500);
                 }
-                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -236,10 +211,8 @@ namespace Physiosoft.Controllers
                     foreach (var errorMessage in error.Errors)
                     {
                         NLogger.LogError($"Key: {error.Key}, Error: {errorMessage}");
-                        //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
                     }
                 }
-
                 return View(physio);
             }
         }
@@ -247,39 +220,34 @@ namespace Physiosoft.Controllers
         // GET: Physios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var physio = new Physio();
             if (id == null)
             {
                 NLogger.LogError($"ID in Physio Delete was null.");
                 return NotFound();
             }
-
-            var physio = await _context.Physios
+            try
+            {
+                physio = await _context.Physios
                 .FirstOrDefaultAsync(m => m.PhysioId == id);
-            if (physio == null)
-            {
-                NLogger.LogError($"Physio in Delete with id {id} was NOT found and returned null.");
-                return NotFound();
-            }
-
-            else
-            {
-                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
-                                                     .Select(e => e.ErrorMessage);
-
-                var errors = ModelState
-                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
-
-                foreach (var error in errors)
+                if (physio == null)
                 {
-                    foreach (var errorMessage in error.Errors)
-                    {
-                        NLogger.LogError($"Key: {error.Key}, Error: {errorMessage}");
-                        //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
-                    }
+                    NLogger.LogError($"Physio in Delete with id {id} was NOT found and returned null.");
+                    return NotFound();
                 }
-
-                return View(physio);
             }
+            catch (DbUpdateException ex)
+            {
+                NLogger.LogError($"Database update exception in physios delete: {ex.Message}");
+                return StatusCode(500);
+            }
+            catch (Exception ex) 
+            {
+                NLogger.LogError($"Error in physios delete! Exception: {ex.Message}");
+                return StatusCode(500);
+            }
+            
+            return View(physio);       
         }
 
         // POST: Physios/Delete/5
@@ -287,16 +255,36 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var physio = await _context.Physios.FindAsync(id);
-            if (physio != null)
+            try
             {
-                _context.Physios.Remove(physio);
-                await _context.SaveChangesAsync();
+                var physio = await _context.Physios.FindAsync(id);
+                if (physio != null)
+                {
+                    _context.Physios.Remove(physio);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    NLogger.LogError($"Physio with id {id} in Delete was not found.");
+                    return NotFound(); 
+                }
             }
-            else
+            catch (DbUpdateConcurrencyException ex)
             {
-                NLogger.LogError($"Physio with id {id} in Delete wasnt found and returned null.");
+                NLogger.LogError($"Concurrency error occurred in DeleteConfirmed: {ex.Message}");
+                return StatusCode(500);
             }
+            catch (DbUpdateException ex)
+            {
+                NLogger.LogError($"Database update error occurred in DeleteConfirmed: {ex.Message}");
+                return StatusCode(500); 
+            }
+            catch (Exception ex)
+            {
+                NLogger.LogError($"Error in DeleteConfirmed: {ex.Message}");
+                return StatusCode(500); 
+            }
+
 
             return RedirectToAction(nameof(Index));
         }
@@ -306,10 +294,64 @@ namespace Physiosoft.Controllers
             return _context.Physios.Any(e => e.PhysioId == id);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetPhysioLastName(int id)
+        {
+            var physio = await _context.Physios.FindAsync(id);
+            if (physio != null)
+            {
+                return Ok(physio.Lastname);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+
         private bool IsUniqueConstraintViolation(DbUpdateException ex)
         {
             // Check if the exception is due to a unique constraint violation
-            return ex.InnerException?.Message.Contains("unique constraint") ?? false;
+            if (ex.InnerException is SqlException sqlEx)
+            {
+                // Check if the exception is a SQL Server exception for a unique constraint violation
+                return sqlEx.Number == 2627 || sqlEx.Number == 2601;
+            }
+
+            return false;
+        }
+
+        private string GetDuplicateColumn(DbUpdateException ex)
+        {
+            string? errorMessage = ex.InnerException?.Message;
+
+            if (errorMessage != null)
+            {
+                string uniqueIndexPrefix = "with unique index '";
+                int startIndex = errorMessage.IndexOf(uniqueIndexPrefix);
+
+                if (startIndex != -1)
+                {
+                    startIndex += uniqueIndexPrefix.Length;
+                    int endIndex = errorMessage.IndexOf("'", startIndex);
+
+                    if (endIndex != -1)
+                    {
+                        string indexName = errorMessage.Substring(startIndex, endIndex - startIndex);
+
+                        // Extract the column name from the index name if possible
+                        // This is dependent on your naming convention for unique indexes
+                        // For example, if your unique indexes are named like "UQ_TableName_ColumnName"
+                        string[] parts = indexName.Split('_');
+                        if (parts.Length >= 3)
+                        {
+                            return parts[2]; // Assuming the third part is the column name
+                        }
+                    }
+                }
+            }
+
+            return "Unknown"; // Default value if the column name could not be determined
         }
     }
 }

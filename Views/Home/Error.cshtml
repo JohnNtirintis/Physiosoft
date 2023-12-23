@@ -1,0 +1,32 @@
+﻿@model Physiosoft.Models.ViewErrorUtil
+
+@{
+    ViewData["Title"] = $"Error {Model.StatusCode}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center">
+                <h1 class="display-4">Oops!</h1>
+                <p class="lead">Something went wrong.</p>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <h2>@Model.Title</h2>
+                <p>@Model.Message</p>
+            </div>
+            <div class="text-center">
+                <a href="/" class="btn btn-primary">Go Home</a>
+                <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        padding-top: 50px;
+        padding-bottom: 100px;
+    }
+</style>

@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using Physiosoft.Data;
 using Physiosoft.Logger;
+using Physiosoft.Models;
+using System.Reflection;
+using Microsoft.Data.SqlClient;
 
 namespace Physiosoft.Controllers
 {
@@ -22,15 +26,16 @@ namespace Physiosoft.Controllers
         // GET: Appointments
         public async Task<IActionResult> Index()
         {
-            try {
+            try
+            {
                 var physiosoftDbContext = _context.Appointments.Include(a => a.Patient).Include(a => a.Physio);
                 return View(await physiosoftDbContext.ToListAsync());
             }
             catch (Exception ex)
             {
                 NLogger.LogError($"Error in calling appointments to list: {ex.Message}");
+                return StatusCode(500); // Return a status code indicating an internal server error
             }
-            
         }
 
         // GET: Appointments/Details/5
@@ -66,44 +71,68 @@ namespace Physiosoft.Controllers
         // POST: Appointments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // TODO: DISPLAY PHYSIO NAME AND PATIENT NAME IN THE CREATE VIEW
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,Notes,PatientIssuse,HasScans")] Appointment appointment)
         {
-
-            ModelState.Remove("Physio");
-            ModelState.Remove("Patient");
-
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(appointment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+                ModelState.Remove("Physio");
+                ModelState.Remove("Patient");
 
-            // Prepare ViewData for dropdowns when ModelState is not valid
-            ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
-            ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
-
-            var errors = ModelState
-                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
-
-            foreach (var error in errors)
-            {
-                foreach (var errorMessage in error.Errors)
+                if (ModelState.IsValid)
                 {
-                    //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
-                    NLogger.LogError($"Key: { error.Key}, Error: { errorMessage}");
+                    _context.Add(appointment);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Prepare ViewData for dropdowns when ModelState is not valid
+                    ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
+                    ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
+
+                    // Log errors
+                    var errors = ModelState
+                        .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                    foreach (var error in errors)
+                    {
+                        foreach (var errorMessage in error.Errors)
+                        {
+                            NLogger.LogError($"Key: {error.Key}, Error: {errorMessage}");
+                        }
+                    }
+                    return View(appointment);
                 }
             }
-
-            return View(appointment);
-
+            catch (DbUpdateException ex)
+            {
+                if (IsUniqueConstraintViolation(ex))
+                {
+                    string duplicateColumn = GetDuplicateColumn(ex);
+                    NLogger.LogError($"Duplicate value Error {duplicateColumn} occurred while editing an appointment entity. Ex: {ex.Message}");
+                    ModelState.AddModelError(duplicateColumn, $"The {duplicateColumn} field is required.");
+                    return View(appointment);
+                }
+                else
+                {
+                    NLogger.LogError($"Error in appointments create! Exception: {ex.Message}");
+                    return StatusCode(500);
+                }
+            }     
+            catch(Exception ex)
+            {
+                NLogger.LogError($"Error! Exception: {ex.Message}");
+                return StatusCode(500);
+            }       
         }
 
         // GET: Appointments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            
             if (id == null)
             {
                 NLogger.LogError($"Error! Given ID in appointments edit was null");
@@ -128,8 +157,6 @@ namespace Physiosoft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AppointmentID,PatientID,PhysioID,AppointmentDate,DurationMinutes,AppointmentStatus,Notes,PatientIssuse,HasScans")] Appointment appointment)
         {
-            
-
             if (id != appointment.AppointmentID)
             {
                 NLogger.LogError($"Error! Didnt find an appointment with an ID: {id}");
@@ -145,37 +172,47 @@ namespace Physiosoft.Controllers
                 {
                     _context.Update(appointment);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException ex)
                 {
-                    if (!AppointmentExists(appointment.AppointmentID))
+                    if (IsUniqueConstraintViolation(ex))
                     {
-                        NLogger.LogError($"Error! Didnt find an appointment with an ID: {id}");
-                        return NotFound();
+                        string duplicateColumn = GetDuplicateColumn(ex);
+                        NLogger.LogError($"Duplicate value {duplicateColumn} Error occurred while editing an appointment entity. Ex: {ex.Message}");
+                        ModelState.AddModelError(duplicateColumn, $"The {duplicateColumn} field is required.");
+                        return View(appointment);
                     }
                     else
                     {
-                        throw;
+                        NLogger.LogError($"Error in appointments edit! Exception: {ex.Message}");
+                        return StatusCode(500);
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            // Prepare ViewData for dropdowns when ModelState is not valid
-            ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
-            ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
-
-            var errors = ModelState
-                .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
-
-            foreach (var error in errors)
-            {
-                foreach (var errorMessage in error.Errors)
+                catch (Exception ex)
                 {
-                    NLogger.LogError($"Key: { error.Key}, Error: { errorMessage}");
-                    //Console.WriteLine($"Key: {error.Key}, Error: {errorMessage}");
+                    NLogger.LogError($"Error! Exception: {ex.Message}");
+                    return StatusCode(500);
                 }
             }
-            return View(appointment);
+            else
+            {
+                // Prepare ViewData for dropdowns when ModelState is not valid
+                ViewData["PatientID"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientID);
+                ViewData["PhysioID"] = new SelectList(_context.Physios, "PhysioId", "PhysioId", appointment.PhysioID);
+
+                var errors = ModelState
+                    .Select(kvp => new { Key = kvp.Key, Errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorMessage in error.Errors)
+                    {
+                        NLogger.LogError($"Key: {error.Key}, Error: {errorMessage}");
+                    }
+                }
+                return View(appointment);
+            }
         }
 
         // GET: Appointments/Delete/5
@@ -219,6 +256,7 @@ namespace Physiosoft.Controllers
             catch(Exception ex)
             {
                 NLogger.LogError($"Error! Coudlnt delete appointment with id: {id}. Exception: {ex.Message}");
+                return View("Error", new ErrorViewModel { RequestId = id.ToString(), ErrorMessage = "Error occurred while trying to delete the appointment." });
             }
             
         }
@@ -230,9 +268,47 @@ namespace Physiosoft.Controllers
 
         private bool IsUniqueConstraintViolation(DbUpdateException ex)
         {
-            // TODO
             // Check if the exception is due to a unique constraint violation
-            return ex.InnerException?.Message.Contains("unique constraint") ?? false;
+            if (ex.InnerException is SqlException sqlEx)
+            {
+                // Check if the exception is a SQL Server exception for a unique constraint violation
+                return sqlEx.Number == 2627 || sqlEx.Number == 2601;
+            }
+
+            return false;
+        }
+
+        private string GetDuplicateColumn(DbUpdateException ex)
+        {
+            string? errorMessage = ex.InnerException?.Message;
+
+            if (errorMessage != null)
+            {
+                string uniqueIndexPrefix = "with unique index '";
+                int startIndex = errorMessage.IndexOf(uniqueIndexPrefix);
+
+                if (startIndex != -1)
+                {
+                    startIndex += uniqueIndexPrefix.Length;
+                    int endIndex = errorMessage.IndexOf("'", startIndex);
+
+                    if (endIndex != -1)
+                    {
+                        string indexName = errorMessage.Substring(startIndex, endIndex - startIndex);
+
+                        // Extract the column name from the index name if possible
+                        // This is dependent on your naming convention for unique indexes
+                        // For example, if your unique indexes are named like "UQ_TableName_ColumnName"
+                        string[] parts = indexName.Split('_');
+                        if (parts.Length >= 3)
+                        {
+                            return parts[2]; // Assuming the third part is the column name
+                        }
+                    }
+                }
+            }
+
+            return "Unknown"; // Default value if the column name could not be determined
         }
     }
 }

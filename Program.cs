@@ -47,6 +47,17 @@ namespace Physiosoft
             NLogger.LogInfo($"Building app");
             var app = builder.Build();
 
+            // Cnfigure the HTTP request pipeline
+            if(!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

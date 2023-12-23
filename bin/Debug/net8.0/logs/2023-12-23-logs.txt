@@ -1,0 +1,206 @@
+2023-12-23 12:33:19.5908 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:33:19.7961 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:33:19.8436 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:33:19.8708 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:33:19.8708 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:33:19.9354 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:33:20.0904 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:35:32.0152 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:35:32.2470 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:35:32.2977 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:35:32.3264 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:35:32.3264 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:35:32.3836 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:35:32.5208 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:39:18.1295 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:39:18.3656 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:39:18.4232 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:39:18.4507 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:39:18.4507 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:39:18.5227 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:39:18.6806 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:39:27.8213 | ERROR | Physiosoft.Logger.NLogger | Edit: Error occurred while editing a patient entity. Ex: An error occurred while saving the entity changes. See the inner exception for details. 
+2023-12-23 12:40:44.2682 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:40:44.4720 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:40:44.5176 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:40:44.5505 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:40:44.5505 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:40:44.6188 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:40:44.7746 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:48:33.0555 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:48:33.3063 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:48:33.3529 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:48:33.3793 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:48:33.3793 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:48:33.4399 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:48:33.5682 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:50:45.8221 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:50:46.0599 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:50:46.1128 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:50:46.1447 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:50:46.1447 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:50:46.2150 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:50:46.3631 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:51:44.4249 | ERROR | Physiosoft.Logger.NLogger | Edit: Duplicate value Error SSN occurred while editing a patient entity. Ex: An error occurred while saving the entity changes. See the inner exception for details. 
+2023-12-23 12:55:03.7321 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 12:55:03.9683 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 12:55:04.0153 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 12:55:04.0396 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 12:55:04.0396 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 12:55:04.1006 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 12:55:04.2487 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 12:55:45.6815 | ERROR | Physiosoft.Logger.NLogger | Edit: Duplicate value Error SSN occurred while editing a patient entity. Ex: An error occurred while saving the entity changes. See the inner exception for details. 
+2023-12-23 13:36:29.4950 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:36:29.7461 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:36:29.7871 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:36:29.8133 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:36:29.8133 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:36:29.8677 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:36:30.0102 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:44:39.7914 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:44:40.0289 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:44:40.0733 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:44:40.0963 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:44:40.0963 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:44:40.1545 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:44:40.2969 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:46:59.9155 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:47:00.1516 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:47:00.2010 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:47:00.2306 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:47:00.2306 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:47:00.2934 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:47:00.4318 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:48:34.0303 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:48:34.2318 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:48:34.2756 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:48:34.3055 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:48:34.3055 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:48:34.3672 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:48:34.5180 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:51:22.7663 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:51:22.9871 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:51:23.0341 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:51:23.0653 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:51:23.0653 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:51:23.1261 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:51:23.2567 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:52:08.2737 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:52:08.4943 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:52:08.5451 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:52:08.5747 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:52:08.5747 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:52:08.6395 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:52:08.7708 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:55:49.9959 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:55:50.2283 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:55:50.2721 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:55:50.3033 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:55:50.3033 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:55:50.3689 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:55:50.5488 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:56:25.5074 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:56:25.7508 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:56:25.7930 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:56:25.8183 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:56:25.8183 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:56:25.8928 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:56:26.0451 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 13:58:43.2965 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 13:58:43.5858 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 13:58:43.6275 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 13:58:43.6530 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 13:58:43.6530 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 13:58:43.7130 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 13:58:43.8531 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:02:14.7702 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:02:15.0574 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:02:15.0999 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:02:15.1235 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:02:15.1235 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:02:15.1815 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:02:15.3224 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:04:27.2327 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:04:27.4566 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:04:27.5065 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:04:27.5338 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:04:27.5338 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:04:27.6037 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:04:27.7595 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:11:39.0250 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:11:39.2525 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:11:39.2975 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:11:39.3254 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:11:39.3254 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:11:39.3924 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:11:39.5369 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:12:45.6040 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:12:45.8586 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:12:45.8991 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:12:45.9237 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:12:45.9237 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:12:45.9868 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:12:46.1842 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:20:53.0267 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:20:53.2879 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:20:53.3374 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:20:53.3696 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:20:53.3696 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:20:53.4440 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:20:53.6456 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:21:30.0089 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:21:30.2669 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:21:30.3192 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:21:30.3505 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:21:30.3505 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:21:30.4279 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:21:30.6194 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:22:08.9360 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:22:09.1841 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:22:09.2381 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:22:09.2689 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:22:09.2689 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:22:09.3406 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:22:09.5299 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:26:08.6751 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:26:08.9522 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:26:09.0180 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:26:09.0494 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:26:09.0494 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:26:09.1297 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:26:09.3300 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 14:31:52.9318 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 14:31:53.1265 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 14:31:53.1671 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 14:31:53.2016 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 14:31:53.2016 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 14:31:53.2644 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 14:31:53.4438 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 15:17:38.7292 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 15:17:38.9352 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 15:17:38.9820 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 15:17:39.0182 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 15:17:39.0182 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 15:17:39.0861 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 15:17:39.2410 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 15:19:12.1161 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 15:19:12.3409 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 15:19:12.3917 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 15:19:12.4183 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 15:19:12.4183 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 15:19:12.4821 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 15:19:12.6392 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 15:28:41.8507 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 15:28:42.1225 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 15:28:42.1853 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 15:28:42.2175 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 15:28:42.2175 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 15:28:42.3062 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 15:28:42.4637 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 
+2023-12-23 15:30:57.9856 | INFO | Physiosoft.Logger.NLogger | Main: Creating Builder with args 
+2023-12-23 15:30:58.2231 | INFO | Physiosoft.Logger.NLogger | Main: Creating connection 
+2023-12-23 15:30:58.2825 | INFO | Physiosoft.Logger.NLogger | Main: Adding Authentication Services 
+2023-12-23 15:30:58.3164 | INFO | Physiosoft.Logger.NLogger | Main: Adding Ddatabase Context via 
+2023-12-23 15:30:58.3165 | INFO | Physiosoft.Logger.NLogger | Main: Adding Services to the container/builder 
+2023-12-23 15:30:58.3791 | INFO | Physiosoft.Logger.NLogger | Main: Building app 
+2023-12-23 15:30:58.5158 | INFO | Physiosoft.Logger.NLogger | Main: Starting Application 

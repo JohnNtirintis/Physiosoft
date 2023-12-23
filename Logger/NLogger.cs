@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System.Runtime.CompilerServices;
 using ILogger = NLog.ILogger;
 
 namespace Physiosoft.Logger
@@ -7,7 +8,7 @@ namespace Physiosoft.Logger
     public class NLogger 
     {
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
-        private static string logMessage;
+        private static string? logMessage;
 
         public static void LogInfo(string message, [CallerMemberName] string memberName = "")
         {
