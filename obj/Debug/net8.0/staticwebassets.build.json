@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DxoIb6qmnbOs8xFL4luuxZKMp6GB4HaxBjSlQeNc6H0=",
+  "Hash": "9y4fcJVPpDWR2gmok+i9PZk3n6ObR3Ch5IGZGHSSuus=",
   "Source": "Physiosoft",
   "BasePath": "_content/Physiosoft",
   "Mode": "Default",
@@ -93,25 +93,6 @@
       "OriginalItemSpec": "D:\\Projects\\Physiosoft\\Physiosoft\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Physiosoft.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\futuristic.css",
-      "SourceId": "Physiosoft",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\",
-      "BasePath": "_content/Physiosoft",
-      "RelativePath": "css/futuristic.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\futuristic.css"
-    },
-    {
       "Identity": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\Login.css",
       "SourceId": "Physiosoft",
       "SourceType": "Discovered",
@@ -169,6 +150,25 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\typewriter.css",
+      "SourceId": "Physiosoft",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\",
+      "BasePath": "_content/Physiosoft",
+      "RelativePath": "css/typewriter.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\typewriter.css"
+    },
+    {
       "Identity": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\favicon.ico",
       "SourceId": "Physiosoft",
       "SourceType": "Discovered",
@@ -205,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\appointments.js"
+    },
+    {
+      "Identity": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\js\\appointments-details.js",
+      "SourceId": "Physiosoft",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\",
+      "BasePath": "_content/Physiosoft",
+      "RelativePath": "js/appointments-details.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\appointments-details.js"
     },
     {
       "Identity": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\js\\site.js",

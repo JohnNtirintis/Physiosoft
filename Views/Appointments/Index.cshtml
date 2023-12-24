@@ -9,6 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <table class="table">
     <thead>
         <tr>
@@ -31,10 +32,10 @@
                 @Html.DisplayNameFor(model => model.HasScans)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Patient)
+                Patient Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Physio)
+                Physio Last Name
             </th>
             <th></th>
         </tr>
@@ -61,10 +62,10 @@
                 @Html.DisplayFor(modelItem => item.HasScans)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Patient.PatientId)
+                @Html.DisplayFor(modelItem => item.Patient.Lastname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Physio.PhysioId)
+                @Html.DisplayFor(modelItem => item.Physio.Lastname)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AppointmentID">Edit</a> |

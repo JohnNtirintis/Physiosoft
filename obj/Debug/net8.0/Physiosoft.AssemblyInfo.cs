@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Physiosoft")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b8390eddb90ffd7d7fae6d7720832150584720d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+974f05832cf04661b5f9ae85309f9f3fd73ca42e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Physiosoft")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Physiosoft")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

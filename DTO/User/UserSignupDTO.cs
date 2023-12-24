@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Physiosoft.DTO.User
 {
@@ -13,5 +14,7 @@ namespace Physiosoft.DTO.User
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$", ErrorMessage = "Password must contain" +
             " at least 1 lower case and 1 upper case letters, 1 numeric character and 1 special character.")]
         public string? Password { get; set; }
+        [Column("is_admin")]
+        public bool IsAdmin { get; set; }
     }
 }

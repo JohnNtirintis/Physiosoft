@@ -22,6 +22,7 @@
         <div class="login-container">
             <form class="login-form" asp-controller="Authentication" asp-action="Login" method="Post">
                 <h3 class="text-center mb-4">Sign in</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     <input type="text" class="form-control" name="username" id="username" placeholder="Email">
                 </div>

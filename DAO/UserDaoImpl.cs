@@ -72,16 +72,6 @@ namespace Physiosoft.DAO
             return _mapper.Map<User>(userToUpdate);
         }
 
-        /*public async Task<User?> GetUserAsync(string username, string password)
-        {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (user is null) return null;
-
-            if (!EncryptionUtil.IsValidPassword(password, user.Password!)) return null;
-
-            return user;
-        }*/
-
         public async Task<User?> GetUserAsync(string username)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);

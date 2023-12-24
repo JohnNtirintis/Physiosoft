@@ -6,7 +6,6 @@
     animation: typing 4s steps(40, end), blink-caret .50s step-end infinite;
 }
 
-/* The typing effect */
 @keyframes typing {
     from {
         width: 0

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
 using Physiosoft.DTO.User;
@@ -13,12 +7,13 @@ using Physiosoft.Logger;
 
 namespace Physiosoft.Controllers
 {
+    // TODO RESOLVE USER REPOISTORY
     public class UsersController : Controller
     {
         private readonly PhysiosoftDbContext _context;
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(PhysiosoftDbContext context, UserRepository userRepository)
+        public UsersController(PhysiosoftDbContext context, IUserRepository userRepository)
         {
             _context = context;
             _userRepository = userRepository;
@@ -27,7 +22,16 @@ namespace Physiosoft.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            //return View(await _context.Users.ToListAsync());
+            var users = await _context.Users.ToListAsync();
+            var userDTOs = users.Select(users => new UserUtilDTO
+            {
+                UserId = users.UserId,
+                Username = users.Username,
+                Email = users.Email,
+            }).ToList();
+
+            return View(userDTOs);
         }
 
         // GET: Users/Details/5
@@ -95,7 +99,7 @@ namespace Physiosoft.Controllers
                 NLogger.LogError($"Error occurred while signing up a user entity. Ex: {ex.Message}");
             }
 
-                return View(request);
+            return View(request);
         }
 
         // GET: Users/Edit/5

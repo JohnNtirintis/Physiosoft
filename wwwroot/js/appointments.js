@@ -10,7 +10,7 @@ document.getElementById('PhysioID').addEventListener('change', function () {
     fetch('/Physios/GetPhysioLastName?id=' + this.value)
         .then(response => {
             if (response.ok) {
-                return response.text(); // Here, using .text() instead of .json()
+                return response.text();
             } else {
                 throw new Error('Network response was NOT ok.');
             }

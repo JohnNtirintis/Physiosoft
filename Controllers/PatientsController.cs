@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
@@ -62,8 +57,6 @@ namespace Physiosoft.Controllers
         }
 
         // POST: Patients/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PatientId,Firstname,Lastname,Telephone,Address,Vat,Ssn,RegNum,Notes,Email,HasReviewed,PatientIssue")] Patient patient)
@@ -119,7 +112,6 @@ namespace Physiosoft.Controllers
         }
 
         // GET: Patients/Edit/5
-        // TODO  Cant see the last input-label
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,8 +131,6 @@ namespace Physiosoft.Controllers
         }
 
         // POST: Patients/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PatientId,Firstname,Lastname,Telephone,Address,Vat,Ssn,RegNum,Notes,Email,HasReviewed,PatientIssue")] Patient patient)
@@ -171,14 +161,14 @@ namespace Physiosoft.Controllers
                     else
                     {
                         NLogger.LogError($"Error occurred while editing a patient entity. Ex: {ex.Message}");
-                        return StatusCode(500); // Return a status code indicating an internal server error
+                        return StatusCode(500);
                     }
                 }  
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", "An Error has occured.");
                     NLogger.LogError($"Error occurred while editing a patient entity. Ex: {ex.Message}");
-                    return StatusCode(500); // Return a status code indicating an internal server error
+                    return StatusCode(500); 
                 }
             }
             else
@@ -240,22 +230,6 @@ namespace Physiosoft.Controllers
             return _context.Patients.Any(e => e.PatientId == id);
         }
 
-        /*[HttpGet]
-        private async Task<IActionResult> GetPatientLastName(int id)
-        {
-            try
-            {
-                var patient = await _context.Patients.FindAsync(id);
-                return Json(patient?.Lastname ?? string.Empty);
-            }
-            catch(Exception ex)
-            {
-                NLogger.LogError($"Error occurred in GetPatientsLastName: {ex.Message}");
-                return Json(string.Empty);
-            }
-           
-        }*/
-
         [HttpGet]
         public async Task<IActionResult> GetPatientLastName(int id)
         {
@@ -269,7 +243,6 @@ namespace Physiosoft.Controllers
                 return NotFound();
             }
         }
-
 
         private bool IsUniqueConstraintViolation(DbUpdateException ex)
         {
@@ -301,19 +274,18 @@ namespace Physiosoft.Controllers
                     {
                         string indexName = errorMessage.Substring(startIndex, endIndex - startIndex);
 
-                        // Extract the column name from the index name if possible
-                        // This is dependent on your naming convention for unique indexes
-                        // For example, if your unique indexes are named like "UQ_TableName_ColumnName"
+                        // the name of the column will always be the last index.
+                        // i.e. uq_physios_ssn
                         string[] parts = indexName.Split('_');
                         if (parts.Length >= 3)
                         {
-                            return parts[2]; // Assuming the third part is the column name
+                            return parts[2];
                         }
                     }
                 }
             }
-
-            return "Unknown"; // Default value if the column name could not be determined
+            // Default value if the column name could not be determined
+            return "Unknown"; 
         }
 
     }

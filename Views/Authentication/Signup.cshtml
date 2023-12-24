@@ -19,6 +19,7 @@
         <div class="signup-container">
             <form class="signup-form" asp-controller="Authentication" asp-action="Signup" method="Post">
                 <h3 class="text-center mb-4">Create Account</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                 </div>
@@ -32,6 +33,9 @@
                     <button type="submit" class="btn btn-primary">Signup</button>
                 </div>
             </form>
+            <div class="text-center">
+                <a href="~/Authentication/Login" class="custom-link">Login</a>
+            </div>
 
             <div class="text-center mt-4">
                 @if (ViewData["ErrorsArray"] != null)

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Physiosoft.Data;
-using Physiosoft.DTO.Physio;
-using Physiosoft.DTO.User;
 using Physiosoft.Logger;
-using Physiosoft.Repisotories;
 
 namespace Physiosoft.Controllers
 {
@@ -62,17 +54,11 @@ namespace Physiosoft.Controllers
 
 
         // GET: Physios/Create
-        /*public IActionResult Create()
-        {
-            return View(new PhysioUtilDTO());
-        }*/
-        // TODO: CHECK IF IT WORKS DUE TO APPOINTMENTS MAPPING
         public IActionResult Create()
         {
             return View(new Physio());
         }
 
-        // TODO: CRASHED WHEN ENTERED DUPLICATE PHONE NUMBER
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -156,8 +142,6 @@ namespace Physiosoft.Controllers
         }
 
         // POST: Physios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PhysioId,Firstname,Lastname,Telephone")] Physio physio)
@@ -311,7 +295,6 @@ namespace Physiosoft.Controllers
 
         private bool IsUniqueConstraintViolation(DbUpdateException ex)
         {
-            // Check if the exception is due to a unique constraint violation
             if (ex.InnerException is SqlException sqlEx)
             {
                 // Check if the exception is a SQL Server exception for a unique constraint violation
@@ -339,19 +322,18 @@ namespace Physiosoft.Controllers
                     {
                         string indexName = errorMessage.Substring(startIndex, endIndex - startIndex);
 
-                        // Extract the column name from the index name if possible
-                        // This is dependent on your naming convention for unique indexes
-                        // For example, if your unique indexes are named like "UQ_TableName_ColumnName"
+                        // the name of the column will always be the last index.
+                        // i.e. uq_physios_telephone
                         string[] parts = indexName.Split('_');
                         if (parts.Length >= 3)
                         {
-                            return parts[2]; // Assuming the third part is the column name
+                            return parts[2]; 
                         }
                     }
                 }
             }
-
-            return "Unknown"; // Default value if the column name could not be determined
+            // Default value if the column name could not be determined
+            return "Unknown"; 
         }
     }
 }

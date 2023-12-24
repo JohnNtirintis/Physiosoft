@@ -13,16 +13,20 @@
       "PackagePath": "staticwebassets\\css\\Signup.css"
     },
     {
-      "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\futuristic.css",
-      "PackagePath": "staticwebassets\\css\\futuristic.css"
-    },
-    {
       "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\css\\typewriter.css",
+      "PackagePath": "staticwebassets\\css\\typewriter.css"
+    },
+    {
       "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\js\\appointments-details.js",
+      "PackagePath": "staticwebassets\\js\\appointments-details.js"
     },
     {
       "Id": "D:\\Projects\\Physiosoft\\Physiosoft\\wwwroot\\js\\appointments.js",

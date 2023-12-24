@@ -27,6 +27,7 @@ namespace Physiosoft.Controllers
             _userDAO = userDAO;
         }
 
+        // TODO RETURN WITH ERRORS IF FAIL
         [HttpGet]
         public IActionResult Login()
         {
@@ -42,6 +43,11 @@ namespace Physiosoft.Controllers
         [HttpGet]
         public IActionResult Signup()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (principal.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -87,12 +93,18 @@ namespace Physiosoft.Controllers
             return RedirectToAction("Login", "Authentication");
         }
 
+        // DOESNT REUTNR WITH ERRORS
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDTO credentials, bool KeepLoggedIn)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return View(credentials);
+            }
+
             try
             {
-                //var user = await _userAuthenticationService.AuthenticateUserAsync(credentials.Username, credentials.Password);
                 var user = await _userDAO.GetUserAsync(credentials.Username);
 
                 if (user != null && EncryptionUtil.IsValidPassword(credentials.Password, user.Password))
@@ -120,15 +132,16 @@ namespace Physiosoft.Controllers
                     // Successful login 
                     return RedirectToAction("Index", "Home");
                 }
-
-                
             } 
             catch (Exception ex)
             {
                 NLogger.LogError($"Error: in Login! Exception: {ex.Message}");
+                ModelState.AddModelError("", "An error occurred while logging in.");
+                return View(credentials);
                 
             }
             // If ModelState is not valid, return to the login view with validation errors
+            ModelState.AddModelError("", "Username and/or Password is incorrect.");
             return View(credentials);
         }
 

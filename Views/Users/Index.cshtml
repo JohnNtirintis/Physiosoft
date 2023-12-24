@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Physiosoft.Data.User>
+﻿@model IEnumerable<Physiosoft.DTO.User.UserUtilDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,6 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <table class="table">
     <thead>
         <tr>
@@ -16,12 +17,11 @@
                 @Html.DisplayNameFor(model => model.Username)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAdmin)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayNameFor(model => model.IsAdmin)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |

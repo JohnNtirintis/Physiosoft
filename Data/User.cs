@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security;
 
@@ -15,6 +16,7 @@ namespace Physiosoft.Data
         public string Password { get; set; }
         [Column("email")]
         public string Email { get; set; }
+        [DefaultValue(false)]
         [Column("is_admin")]
         public bool IsAdmin { get; set; }
     }
