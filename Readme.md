@@ -32,3 +32,30 @@ In addition to this, Physiosoft integrates various other technologies and practi
 - **C# and .NET 8**: Forms the core of backend development, providing a powerful and efficient programming environment.
 - **SQL Database**: Utilizes SQL databases for robust and reliable data storage.
 - **Razor, Bootstrap, and JQuery**: These technologies enhance the front-end development, ensuring a responsive and user-friendly interface.
+
+## Installation and Setup
+<ol>
+  <li>Clone the repository:
+    
+     ```md
+     git clone https://github.com/JohnNtirintis/Physiosoft.git
+     ```
+  </li>
+  <li>Database Setup:
+    <ul>
+      <li>Navigate to the SQL folder within the cloned repository.</li>
+      <li>Open SSMS.</li>
+      <li>Run the CreateDatabase.sql script to create the necessary database schema.</li>
+      <li>Execute the CreateUser.sql script to create user accounts.</li>
+      <li>Finally, run the PopulateDatabase.sql script to populate the database with some example data.</li>
+    </ul>
+  </li>
+  <li>Application Configuration
+     <ul>
+      <li>Ensure that the connection strings in the application configuration file (appsettings.json) are set to point to your newly created database.</li>
+      <li>Verify that other configuration settings (like any API keys or external service configurations) are correctly set up.</li>
+    </ul>
+  </li>
+</ol>
+
+
