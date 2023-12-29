@@ -37,9 +37,9 @@ In addition to this, Physiosoft integrates various other technologies and practi
 <ol>
   <li>Clone the repository:
     
-     ```md
+     
      git clone https://github.com/JohnNtirintis/Physiosoft.git
-     ```
+    
   </li>
   <li>Database Setup:
     <ul>
